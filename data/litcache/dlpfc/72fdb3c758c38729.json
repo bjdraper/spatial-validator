@@ -1,0 +1,43 @@
+{
+  "query": "GFAP AND human DLPFC",
+  "as_of": "2026-06-01",
+  "fetched_via": "pubmed-eutils",
+  "results": [
+    {
+      "pmid": "39580758",
+      "doi": "10.1007/s00401-024-02828-5",
+      "title": "Pathologic and clinical correlates of region-specific brain GFAP in Alzheimer's disease",
+      "journal": "Acta Neuropathol",
+      "year": "2024",
+      "snippet": "Plasma glial fibrillary acidic protein (GFAP) is an emerging biomarker of Alzheimer's disease (AD), with higher blood GFAP levels linked to faster cognitive decline, particularly among individuals with high brain amyloid burden.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39580758/"
+    },
+    {
+      "pmid": "41188877",
+      "doi": "10.1186/s12974-025-03608-y",
+      "title": "A molecular convergence in the triad of parkinson's disease, depressive disorder and gut health is revealed by the inflammation-miRNA axis",
+      "journal": "J Neuroinflammation",
+      "year": "2025",
+      "snippet": "Parkinson's disease (PD) is a multisystem disorder frequently comorbid with non-motor symptoms like depressive disorder (DD) and gastrointestinal (GI) dysfunction.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41188877/"
+    },
+    {
+      "pmid": "25329999",
+      "doi": "10.1371/journal.pone.0110972",
+      "title": "Coordinated gene expression of neuroinflammatory and cell signaling markers in dorsolateral prefrontal cortex during human brain development and aging",
+      "journal": "PLoS One",
+      "year": "2014",
+      "snippet": "Age changes in expression of inflammatory, synaptic, and neurotrophic genes are not well characterized during human brain development and senescence.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/25329999/"
+    },
+    {
+      "pmid": "36647571",
+      "doi": "10.1002/jnr.25167",
+      "title": "The association of astrogliosis and microglial activation with aging and Alzheimer's disease pathology in the chimpanzee brain",
+      "journal": "J Neurosci Res",
+      "year": "2023",
+      "snippet": "Aging and neurodegenerative disorders, such as Alzheimer's disease (AD), trigger an immune response known as glial activation in the brain.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/36647571/"
+    }
+  ]
+}

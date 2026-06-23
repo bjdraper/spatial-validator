@@ -8,8 +8,8 @@
 #                                                   (Haiku doesn't support thinking/effort)
 provider: anthropic           # anthropic | openai | ollama (see configs/dlpfc.ollama.yaml)
 model: claude-sonnet-4-6      # cheaper default; swap to claude-opus-4-8 for the final benchmark
-thinking: adaptive            # "adaptive", or null for Haiku  (anthropic only)
-effort: high                  # low|medium|high|max, or null for Haiku  (anthropic only)
+thinking: null                # off for a lean ~90s run; set "adaptive" for max quality
+effort: medium                # low|medium|high|max, or null for Haiku  (anthropic only)
 
 species: human
 tissue: dorsolateral prefrontal cortex (DLPFC)
@@ -33,6 +33,21 @@ adjacent_partial_credit: 0.5
 marker_kb: data/kb/brain_markers.json
 fixtures: data/fixtures/dlpfc
 
+# CellMarker 2.0 SQLite index for the Critic's confounder_lookup tool
+# (data_prep/build_cellmarker_db.py). Gene symbols match case-insensitively, so
+# the mouse-derived index still serves human symbols; misses degrade gracefully.
+cellmarker_db: data/kb/cellmarker.db
+
+# UniProt protein-annotation lookup for the Critic (agent/uniprot.py).
+#   source: uniprot     -> live query on cache miss, then cached (default)
+#           cache_only  -> committed snapshot only; offline + reproducible
+#           none        -> disable the tool
+uniprot:
+  enabled: true
+  source: uniprot
+  cache_dir: data/uniprotcache/dlpfc
+  # taxon_id derived from species (human=9606); override here if needed.
+
 # Live PubMed literature search with a persistent on-disk cache (agent/literature.py).
 #   source: pubmed     -> live query on cache miss, then cached (default)
 #           cache_only -> committed snapshot only; offline + fully reproducible
@@ -46,22 +61,6 @@ literature:
   as_of: "2026-06-01"            # PubMed date ceiling -> "live" stays reproducible
   ncbi_api_key_env: NCBI_API_KEY # optional; raises rate limit 3 -> 10 req/s
 
-system_prompt: |
-  You are a spatial transcriptomics annotation assistant. Given a cluster's top
-  differentially expressed marker genes, you predict its cell type or tissue
-  layer, choosing exactly one label from the candidate set provided.
-
-  How to work:
-  - Look up every candidate marker gene with marker_lookup before deciding.
-  - Treat negative markers as first-class evidence: a label is weakened if a
-    gene that should be ABSENT for it is present. Record these in negative_checks.
-  - Weigh positive support against negative-marker violations and species/tissue
-    mismatches. A highly specific marker outweighs several non-specific ones.
-  - When two labels are close, use adjacency_rules to check spatial plausibility
-    against the cluster's neighbours.
-  - If the evidence genuinely splits, choose the best-supported label and list
-    the others in ambiguous_between rather than guessing confidently.
-  - Cite the marker-KB entries (and any literature snippets) you relied on.
-
-  Be precise and honest about uncertainty. Your final answer is consumed by an
-  automated grader, so it must conform exactly to the requested schema.
+# Inherit the centralized ACTOR-CRITIC system prompt (agent/prompts.py). Set a
+# string here to override it for this dataset.
+system_prompt: null

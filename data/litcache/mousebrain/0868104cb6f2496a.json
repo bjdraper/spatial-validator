@@ -1,0 +1,43 @@
+{
+  "query": "Resp18 regulated endocrine specific protein neuroendocrine hypothalamus pituitary",
+  "as_of": "2026-06-01",
+  "fetched_via": "pubmed-eutils",
+  "results": [
+    {
+      "pmid": "31294787",
+      "doi": "10.1210/en.2019-00397",
+      "title": "Regulated Endocrine-Specific Protein-18, an Emerging Endocrine Protein in Physiology: A Literature Review",
+      "journal": "Endocrinology",
+      "year": "2019",
+      "snippet": "Regulated endocrine-specific protein-18 (RESP18), a novel 18-kDa protein, was first identified in neuroendocrine tissue.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/31294787/"
+    },
+    {
+      "pmid": "22561140",
+      "doi": "10.1016/j.regpep.2012.04.008",
+      "title": "Regulated endocrine-specific protein 18 (RESP18) is localized to and regulated in A-like cells and G-cells in rat stomach",
+      "journal": "Regul Pept",
+      "year": "2012",
+      "snippet": "The regulated endocrine-specific protein 18 (RESP18) has previously been localized to different endocrine cells and neurons, in particular the pituitary gland and hypothalamus.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/22561140/"
+    },
+    {
+      "pmid": "7988462",
+      "doi": "10.1210/endo.135.6.7988462",
+      "title": "Regulated endocrine-specific protein-18: a short-lived novel glucocorticoid-regulated endocrine protein",
+      "journal": "Endocrinology",
+      "year": "1994",
+      "snippet": "Regulated endocrine-specific protein-18 (RESP18) is an 18-kilodalton endocrine-specific transcript whose expression is regulated by a number of different physiological and pharmacological stimuli in different tissues.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/7988462/"
+    },
+    {
+      "pmid": "9369452",
+      "doi": "10.1210/mend.11.12.0024",
+      "title": "A novel neuroendocrine intracellular signaling pathway",
+      "journal": "Mol Endocrinol",
+      "year": "1997",
+      "snippet": "Expression of many components of the secretory pathway in peptidergic neuroendocrine cells is precisely controlled in response to secretagogues.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/9369452/"
+    }
+  ]
+}

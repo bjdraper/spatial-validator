@@ -60,46 +60,60 @@ data/fixtures/*.json ┤
 
 ## 3. The agent loop (`agent/loop.py → predict()`)
 
-One cluster is processed in **two phases**.
+One cluster is processed in **three trace-tagged phases** — a dual **Actor–Critic**
+framework. The shared system prompt (`agent/prompts.py:ACTOR_CRITIC_TEMPLATE`,
+inherited by any config with `system_prompt: null`) tells the model to mark its
+internal reasoning with `[ACTOR]` / `[CRITIC]` tags.
 
-### Phase A — evidence gathering (bounded tool loop)
+### Phase 1 — ACTOR (commit to one hypothesis)
 
-1. Build the **system prompt** (from config, prompt-cached) and a **user
-   message** containing: cluster ID, species/tissue, the candidate label set,
-   and the cluster's top DE genes.
-2. Call the Claude API with the three tools available, **adaptive thinking** on,
-   and **effort = high**.
-3. Inspect `stop_reason`:
-   - `tool_use` → the model wants data. Execute every requested tool locally,
-     append the results, loop back to step 2.
-   - anything else → the model is done gathering; exit the loop.
-4. Repeat until done **or** a hard cap trips (see §6).
+1. Build the **user message** (cluster ID, species/tissue, candidate labels, top
+   DE genes, neighbours) and append an `[ACTOR]` director.
+2. Run a bounded tool loop with the **Actor tool subset** — `marker_lookup`,
+   `confounder_lookup`, `adjacency_rules` — until the model stops requesting tools
+   or the per-phase iter cap trips. The Actor states ONE best-supported candidate.
 
-### Phase B — commit to a structured answer
+### Phase 2 — CRITIC (aggressively try to disprove it)
 
-5. Append one final user turn ("output your final prediction as JSON"), drop the
-   tools, and call the API again with **`output_config.format` = the prediction
-   schema**. This forces a clean JSON object — no free text to parse.
-6. Parse the JSON, attach the full step-by-step trace and elapsed time, and
-   return `(prediction, trace)`.
+3. Append a `[CRITIC]` director and run a bounded tool loop with the **full tool
+   set** (adds `uniprot_lookup` + `search_literature`). The Critic must: classify
+   each DEG as housekeeping vs biomarker (and which cell types/tissue it pertains
+   to), surface confounding cell types that share the DEGs, check literature
+   provenance + known panels, scan for negative markers, and assign a
+   `vulnerability_score`.
+4. **Disproof is structurally enforced:** `uniprot_lookup`/`search_literature` are
+   *reserved* for this phase (the Actor can't front-load them), and if the Critic
+   ends having called no disproof tool, one extra nudged pass is forced. Both facts
+   are recorded (`critic_disproof_tools`, `critic_disproof_enforced`).
 
-Separating "gather evidence with tools" (Phase A) from "emit the contract"
-(Phase B) is deliberate: tool turns produce `tool_use` blocks, not JSON, so we
-only constrain the format on the final, tool-free turn.
+### Phase 3 — RESOLUTION (commit to a structured answer)
+
+5. Append a `[RESOLUTION]` turn, drop the tools, and call again with
+   **`output_config.format` = the prediction schema** → a clean JSON object. If the
+   Critic exposed fatal flaws the model pivots to the next-best candidate here.
+6. Parse the JSON, attach the full phase-tagged trace + elapsed time, and return
+   `(prediction, trace)`.
+
+Reserving the format constraint for the final tool-free turn is deliberate: tool
+turns produce `tool_use` blocks, not JSON. Restricting tools per phase is what makes
+the Actor/Critic split real rather than a prompt suggestion.
 
 ---
 
 ## 4. What the agent can call (the tools — `agent/tools.py`)
 
-All three are **read-only** (no side effects, so a run can never alter anything).
-`marker_lookup` and `adjacency_rules` are local; `search_literature` reaches
-PubMed (with a persistent cache — see §4a).
+All five are **read-only** (no side effects, so a run can never alter anything).
+`marker_lookup`, `adjacency_rules`, and `confounder_lookup` are local;
+`search_literature` (PubMed) and `uniprot_lookup` (UniProt) reach the network with
+a persistent cache (§4a). Tools are gated per phase (see §3).
 
-| Tool | Input | Returns | Purpose |
-|---|---|---|---|
-| `marker_lookup` | `gene` | KB entry: `identities` (labels it points to), `direction`, `specificity` (`high`/`medium`/`low`/`none`), `note`, `citation`; or `found: false` | The core call — turn a gene into evidence about which label it implies and how much to trust it. |
-| `adjacency_rules` | `label` | which labels can be spatially adjacent to that one (from config) | Sanity-check spatial plausibility (cortical layers are an ordered stack). Empty for non-spatial tasks. |
-| `search_literature` | `query` | ranked PubMed refs — title, journal, year, snippet, **PMID + DOI** | Corroborate a marker call, or reason about a gene missing from the KB. Live + cached (§4a). |
+| Tool | Phase | Input | Returns | Purpose |
+|---|---|---|---|---|
+| `marker_lookup` | actor+critic | `gene` | KB entry: `identities`, `direction`, `specificity`, `note`, `citation`; or `found: false` | Turn a gene into evidence about which label it implies and how much to trust it. |
+| `confounder_lookup` | actor+critic | `gene` | `n_cell_types`, `cell_types`, `tissues`, `promiscuity`, `specificity`, `housekeeping_signal` | CellMarker 2.0 SQLite oracle: how many cell types *share* this marker → shared/non-specific & housekeeping signal for the Critic. |
+| `adjacency_rules` | actor+critic | `label` | which labels can be spatially adjacent (from config) | Sanity-check spatial plausibility. Empty for non-spatial tasks. |
+| `uniprot_lookup` | critic only | `gene` | `protein_name`, `function`, `subcellular_location`, `keywords` | UniProt function/localization → judge biomarker vs ubiquitous housekeeping protein. Live + cached. |
+| `search_literature` | critic only | `query` | ranked PubMed refs — title, journal, year, snippet, **PMID + DOI** | Corroborate provenance / find known marker panels; reason about genes missing from the KB. Live + cached (§4a). |
 
 ### 4a. Literature search — live PubMed + persistent cache (`agent/literature.py`)
 
@@ -117,6 +131,26 @@ every result under `literature.cache_dir`. Configured per dataset:
 
 The model decides *which* genes to look up and *whether* to check adjacency —
 those calls aren't scripted.
+
+### 4c. Critic backends — CellMarker confounders + UniProt (`agent/cellmarker.py`, `agent/uniprot.py`)
+
+- **`confounder_lookup`** queries a local **CellMarker 2.0 SQLite index**
+  (`data/kb/cellmarker.db`, built by `data_prep/build_cellmarker_db.py` — kept
+  fine-grained and across all tissues on purpose). It returns how many distinct
+  cell types report a gene as a marker → a `promiscuity`/`specificity` verdict: a
+  gene claimed by one cell type is a candidate specific biomarker; one claimed by
+  many is a *shared* confounder that weakly discriminates. Read-only `sqlite3`
+  (stdlib), connection cached; a missing `.db` degrades gracefully. The `.db` is a
+  PRIVATE build artifact (gitignored).
+- **`uniprot_lookup`** queries UniProt REST (stdlib `urllib`) for protein function,
+  subcellular localization, and keywords, caching like literature under
+  `uniprot.cache_dir` (`source: uniprot | cache_only | none`; taxon from
+  `species`). It separates specialised biomarkers (e.g. a lineage TF, a synaptic
+  protein) from ubiquitous housekeeping proteins (cytoskeleton/ribosome/metabolism).
+
+Together these power the Critic's three discriminations — housekeeping vs
+biomarker, which cell types/tissue a marker pertains to, and whether the DEG set
+forms a coherent panel — surfaced in `gene_classification` / `detected_panels`.
 
 ---
 
@@ -141,16 +175,19 @@ Two kinds: **model decisions** (the agent's reasoning) and **control decisions**
 | Decision | Mechanism |
 |---|---|
 | Continue or stop the loop | branch on `stop_reason` (`tool_use` → continue) |
-| Stop runaway loops | `max_iters=4`, `max_tool_calls=12`, `timeout_s=90` (hard caps) |
-| Enforce the output shape | final call constrained by `prediction_schema` |
+| Stop runaway loops | `max_iters_actor=2`, `max_iters_critic=2`, `max_tool_calls=80`, `timeout_s=90` (lean caps) |
+| Enforce the output shape | final call constrained by `prediction_schema` (retry once, then graceful fallback) |
 
 ---
 
 ## 6. Control & reproducibility
 
-- **Hard caps** on iterations, tool calls, and wall-clock — the agent physically
-  cannot loop forever or blow the 90 s budget.
-- **Pinned model id** (`claude-opus-4-8`, in config) so results are reproducible.
+- **Lean caps** on per-phase iterations, tool calls, and wall-clock — the agent
+  physically cannot loop forever or blow the 90 s budget. (The budget is sized for
+  wide tool batching — a model can look up all 15 DEGs in one turn without
+  thrashing on "budget exceeded".)
+- **Pinned model id** (in config; the default datasets use `claude-sonnet-4-6` with
+  thinking off + `effort: medium` for a lean run) so results are reproducible.
 - **Full trace per cluster** (every tool call, input, output, stop reason, final
   prediction) written to `runs/traces.json`.
 - **Read-only tools** — no destructive actions possible.
@@ -168,12 +205,16 @@ so the schema is dataset-agnostic):
 
 | Field | Meaning |
 |---|---|
+| `initial_hypothesis` | the Actor's primary candidate, before the Critic stress-tested it |
 | `predicted_label` | one label from the dataset's vocabulary (the graded answer) |
 | `confidence` | `high` / `medium` / `low` |
+| `vulnerability_score` | Critic's `high`/`medium`/`low` risk that the resolved label is a misclassification |
 | `supporting_genes` | genes that drove the call |
+| `gene_classification` | per-DEG: `role` (`biomarker`/`housekeeping`/`ambiguous`) + `pertains_to` (which cell types/tissue) |
+| `detected_panels` | named co-expression signatures / marker panels the DEG set matches |
 | `negative_checks` | negative-marker reasoning applied |
 | `ambiguous_between` | other labels still in contention |
-| `reasoning` | short rationale |
+| `reasoning` | short rationale (the Resolution narrative) |
 | `citations` | KB entries / literature relied on |
 
 ---

@@ -6,93 +6,26 @@ predicts the cell type / tissue layer — using a marker knowledge base, negativ
 markers, spatial adjacency, and literature — and emits a structured, cited
 prediction that is scored against expert annotations.
 
-> **Data classification: PRIVATE.** The underlying datasets are public and
-> de-identified (DLPFC is post-mortem human; MERFISH is mouse), but the built
-> fixtures in this repo are treated as PRIVATE. Confirm the destination repo's
-> visibility before sharing. No PHI/PII is present.
-
-## Provider-agnostic — runs on Claude, Codex, or local Ollama models
-
-The model layer is fully decoupled (`agent/providers.py` is the *only*
-vendor-aware file). The same agent logic, KBs, prompts, and scoring run against
-any of three backends — pick one with `provider:` in the config, or override
-per run with `--provider`:
-
-| Provider | `provider:` | Auth | Example |
-|---|---|---|---|
-| **Anthropic** (Claude) | `anthropic` | `ANTHROPIC_API_KEY` | `claude-sonnet-4-6`, `claude-opus-4-8` |
-| **OpenAI / Codex** (or any OpenAI-compatible endpoint) | `openai` | `OPENAI_API_KEY` (+ optional `base_url`) | `gpt-4o` |
-| **Ollama** (local, offline, no key) | `ollama` | none | `llama3.2`, `qwen2.5:14b` |
-
-```bash
-# Claude (default — configs/dlpfc.yaml sets provider: anthropic)
-python eval/run_eval.py --config configs/dlpfc.yaml
-
-# OpenAI / Codex
-python eval/run_eval.py --config configs/dlpfc.yaml --provider openai --model gpt-4o
-
-# Local model via Ollama — no API key, runs offline
-python eval/run_eval.py --config configs/dlpfc.ollama.yaml --limit 2
-```
-
-`provider: openai` also accepts `base_url:` for any OpenAI-compatible server.
-Local models must support **tool-calling** to gather marker evidence (llama3.2
-does; pull a stronger model like `qwen2.5:14b` for better accuracy).
-
-## Live literature search (PubMed) with a persistent cache
-
-`search_literature` queries **PubMed via NCBI E-utilities** (stdlib only — no
-extra dependency, no MCP) and writes every result to an on-disk cache
-(`data/litcache/<dataset>/`). The agent uses it to corroborate a marker call or
-to reason about a gene that's missing from the marker KB, citing real **PMIDs +
-DOIs**. Configure per dataset under `literature:` in the YAML:
-
-```yaml
-literature:
-  enabled: true
-  source: pubmed        # pubmed = live on cache miss, then cached
-                        # cache_only = committed snapshot only (offline, reproducible)
-                        # none = disable the tool
-  cache_dir: data/litcache/dlpfc
-  top_k: 4
-  as_of: "2026-06-01"   # PubMed date ceiling -> "live" stays reproducible
-  ncbi_api_key_env: NCBI_API_KEY   # optional; raises rate limit 3 -> 10 req/s
-```
-
-- **Demo / benchmark:** the committed `data/litcache/` snapshot makes re-runs
-  fast, offline, and reproducible. Set `source: cache_only` to guarantee no
-  network calls.
-- **New datasets:** pre-warm the cache from a dataset's own fixtures —
-  `python data_prep/warm_litcache.py --config configs/<dataset>.yaml`.
-- **Grounding:** each run records which PMIDs were actually retrieved; any PMID
-  the model *cites* but never retrieved is flagged (`citation_grounded` on the
-  prediction, `ungrounded_pmid_citations` in the trace).
-
 ## Why it's evaluable
 
 Benchmarked on the **DLPFC (Maynard et al. 2021)** dataset: every spot is
 expert-annotated into one of 7 classes (L1–L6, WM), so scoring is objective
 (accuracy + confusion matrix). Runs per cluster in well under 90s, no model
-training, public de-identified data only. A second dataset (MERFISH mouse
-hypothalamus) proves the design generalizes to a cell-type task with a different
-label vocabulary — same agent code, new config + KB + fixtures.
+training, public de-identified data only.
 
 ## Layout
 
 ```
 agent/        dataset-AGNOSTIC core — never edited per dataset
   loop.py       bounded, auditable agent loop (caps + full trace)
-  providers.py  provider-agnostic model layer (anthropic | openai | ollama)
   tools.py      marker_lookup, search_literature, adjacency_rules (read-only)
-  literature.py cache-first PubMed (E-utilities) client behind search_literature
   schema.py     structured-output contract (label enum from config)
-configs/      one YAML per dataset+provider (model, labels, adjacency, KB, prompt)
+configs/      one YAML per dataset (model, labels, adjacency, KB, prompt)
 data/
   kb/           marker knowledge base(s)
   fixtures/     per-cluster DE genes + ground-truth labels
 eval/run_eval.py   loop the fixtures, score, write traces
-data_prep/    offline: fetch dataset + build fixtures (see data_prep/README.md)
-docs/         design notes, teaching guide, dataset provenance
+data_prep/    offline: fetch dataset + build fixtures
 ```
 
 Adding a dataset = a new `configs/*.yaml` + its KB and fixtures. No agent edits.
@@ -100,22 +33,43 @@ Adding a dataset = a new `configs/*.yaml` + its KB and fixtures. No agent edits.
 ## Setup
 
 ```bash
-pip install -r requirements.txt        # PyYAML + the provider SDK(s) you use
-cp .env.example .env                    # add keys for the API providers you use
+pip install -r requirements.txt
+cp .env.example .env      # add your ANTHROPIC_API_KEY
 ```
 
-`requirements.txt` lists both `anthropic` and `openai` — install only what your
-chosen provider needs. Ollama needs no Python key (just a running `ollama serve`).
+## Run
 
-## Datasets
+```bash
+python eval/run_eval.py --config configs/dlpfc.yaml            # full
+python eval/run_eval.py --config configs/dlpfc.yaml --limit 2  # quick smoke test
+```
 
-Fixtures (the per-cluster "clusters") ship pre-built in `data/fixtures/`. To
-regenerate them from the raw public datasets, see **[`data_prep/README.md`](data_prep/README.md)**;
-full provenance and citations are in **[`DATASETS.md`](DATASETS.md)**.
+Ships with a small placeholder fixture so it runs immediately. Replace it with
+real fixtures via `data_prep/` (see `data_prep/README.md`).
+
+## Models / providers
+
+The agent is provider-agnostic (`agent/providers.py` is the only vendor-aware
+file). Pick a backend with `provider:` in the config, or override per-run:
+
+```bash
+# Claude (default)
+python eval/run_eval.py --config configs/dlpfc.yaml
+
+# Local model via Ollama — no API key, runs offline
+python eval/run_eval.py --config configs/dlpfc.ollama.yaml --limit 2
+
+# OpenAI / Codex (or any OpenAI-compatible endpoint)
+python eval/run_eval.py --config configs/dlpfc.yaml \
+    --provider openai --model gpt-4o     # set OPENAI_API_KEY in .env
+```
+
+`provider: openai` also accepts a `base_url:` for any OpenAI-compatible server.
+Local models must support tool-calling to gather marker evidence (llama3.2 does;
+pull a larger model like `qwen2.5:14b` for better accuracy).
 
 ## Control / reproducibility
 
 - Hard caps on iterations, tool calls, and wall-clock time.
-- Model id + provider pinned in config; full per-cluster trace written to `runs/`.
+- Model id pinned in config; full per-cluster trace written to `runs/`.
 - Tools are read-only; the prediction is schema-validated.
-- `--resume` reuses prior successful predictions and re-runs only errors.

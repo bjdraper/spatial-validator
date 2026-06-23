@@ -1,0 +1,59 @@
+{
+  "_note": "Hand-curated canonical region markers for the mouse coronal brain (10x Visium H&E, squidpy demo). Region task: Cortex, Hippocampus, Thalamus, Hypothalamus, Striatum, Fiber_tract (white matter), Lateral_ventricle (choroid plexus / ependyma). Curated from canonical neuroanatomy (Allen Mouse Brain Atlas) independently of the fixtures' DE genes.",
+  "_specificity_guide": "high = strongly region-restricted; medium = region-enriched but shared with 1-2 neighbours; low = broad/pan-neuronal.",
+  "species": "mouse",
+  "tissue": "brain (coronal section)",
+  "markers": [
+    {"gene": "Slc17a7", "identities": ["Cortex", "Hippocampus"], "direction": "positive", "specificity": "medium", "note": "Vglut1; cortical + hippocampal excitatory neurons.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Cux2", "identities": ["Cortex"], "direction": "positive", "specificity": "high", "note": "Upper-layer (L2/3/4) cortical neurons.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Satb2", "identities": ["Cortex"], "direction": "positive", "specificity": "high", "note": "Cortical (callosal) projection neurons.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Tbr1", "identities": ["Cortex"], "direction": "positive", "specificity": "high", "note": "Deep-layer cortical / pallial excitatory neurons.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Mef2c", "identities": ["Cortex"], "direction": "positive", "specificity": "medium", "note": "Cortical excitatory neuron enriched.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Nrgn", "identities": ["Cortex", "Hippocampus"], "direction": "positive", "specificity": "low", "note": "Neurogranin; broad telencephalic neuronal marker.", "citation": "Allen Mouse Brain Atlas"},
+
+    {"gene": "Hpca", "identities": ["Hippocampus"], "direction": "positive", "specificity": "high", "note": "Hippocalcin; hippocampus-enriched.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Neurod6", "identities": ["Hippocampus"], "direction": "positive", "specificity": "high", "note": "Hippocampal (and developing cortical) excitatory neurons.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "C1ql2", "identities": ["Hippocampus"], "direction": "positive", "specificity": "high", "note": "Dentate gyrus granule cells.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Prox1", "identities": ["Hippocampus"], "direction": "positive", "specificity": "high", "note": "Dentate gyrus granule cell determinant.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Spink8", "identities": ["Hippocampus"], "direction": "positive", "specificity": "high", "note": "CA pyramidal layer enriched.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Camk2a", "identities": ["Cortex", "Hippocampus", "Striatum"], "direction": "positive", "specificity": "low", "note": "Broad forebrain excitatory marker; not region-specific.", "citation": "Allen Mouse Brain Atlas"},
+
+    {"gene": "Tcf7l2", "identities": ["Thalamus"], "direction": "positive", "specificity": "high", "note": "Master thalamic transcription factor.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Prkcd", "identities": ["Thalamus"], "direction": "positive", "specificity": "high", "note": "Thalamic (sensory relay) nuclei.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Ntng1", "identities": ["Thalamus"], "direction": "positive", "specificity": "medium", "note": "Netrin-G1; thalamocortical neurons.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Slc17a6", "identities": ["Thalamus", "Hypothalamus"], "direction": "positive", "specificity": "medium", "note": "Vglut2; subcortical (thalamic/hypothalamic) excitatory neurons.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Tnnt1", "identities": ["Thalamus"], "direction": "positive", "specificity": "medium", "note": "Thalamic nuclei enriched.", "citation": "Allen Mouse Brain Atlas"},
+
+    {"gene": "Resp18", "identities": ["Hypothalamus"], "direction": "positive", "specificity": "medium", "note": "Regulated endocrine-specific protein 18; neuroendocrine/hypothalamic.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Gal", "identities": ["Hypothalamus"], "direction": "positive", "specificity": "high", "note": "Galanin; hypothalamic neuropeptide.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Trh", "identities": ["Hypothalamus"], "direction": "positive", "specificity": "high", "note": "Thyrotropin-releasing hormone; hypothalamic.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Hcrt", "identities": ["Hypothalamus"], "direction": "positive", "specificity": "high", "note": "Hypocretin/orexin; lateral hypothalamus.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Pmch", "identities": ["Hypothalamus"], "direction": "positive", "specificity": "high", "note": "Pro-melanin-concentrating hormone; lateral hypothalamus.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Agt", "identities": ["Hypothalamus"], "direction": "positive", "specificity": "low", "note": "Angiotensinogen; hypothalamus-enriched but also astrocytic.", "citation": "Allen Mouse Brain Atlas"},
+
+    {"gene": "Ppp1r1b", "identities": ["Striatum"], "direction": "positive", "specificity": "high", "note": "DARPP-32; striatal medium spiny neurons.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Penk", "identities": ["Striatum"], "direction": "positive", "specificity": "high", "note": "Proenkephalin; indirect-pathway striatal MSNs.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Tac1", "identities": ["Striatum"], "direction": "positive", "specificity": "medium", "note": "Tachykinin; direct-pathway striatal MSNs.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Adora2a", "identities": ["Striatum"], "direction": "positive", "specificity": "high", "note": "Adenosine A2a receptor; indirect-pathway MSNs.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Drd1", "identities": ["Striatum"], "direction": "positive", "specificity": "high", "note": "Dopamine receptor D1; direct-pathway MSNs.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Gpr88", "identities": ["Striatum"], "direction": "positive", "specificity": "high", "note": "Striatum-enriched orphan GPCR.", "citation": "Allen Mouse Brain Atlas"},
+
+    {"gene": "Mbp", "identities": ["Fiber_tract"], "direction": "positive", "specificity": "high", "note": "Myelin basic protein; white-matter oligodendrocytes.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Plp1", "identities": ["Fiber_tract"], "direction": "positive", "specificity": "high", "note": "Proteolipid protein 1; myelinating oligodendrocytes.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Mobp", "identities": ["Fiber_tract"], "direction": "positive", "specificity": "high", "note": "Myelin-associated oligodendrocyte basic protein.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Mal", "identities": ["Fiber_tract"], "direction": "positive", "specificity": "high", "note": "Myelin and lymphocyte protein; white matter.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Mog", "identities": ["Fiber_tract"], "direction": "positive", "specificity": "high", "note": "Myelin oligodendrocyte glycoprotein.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Cldn11", "identities": ["Fiber_tract"], "direction": "positive", "specificity": "high", "note": "Claudin-11; CNS myelin tight junctions.", "citation": "Allen Mouse Brain Atlas"},
+
+    {"gene": "Ttr", "identities": ["Lateral_ventricle"], "direction": "positive", "specificity": "high", "note": "Transthyretin; choroid plexus epithelium (ventricle).", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Folr1", "identities": ["Lateral_ventricle"], "direction": "positive", "specificity": "high", "note": "Folate receptor 1; choroid plexus.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Enpp2", "identities": ["Lateral_ventricle"], "direction": "positive", "specificity": "medium", "note": "Autotaxin; choroid plexus / leptomeninges.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Foxj1", "identities": ["Lateral_ventricle"], "direction": "positive", "specificity": "high", "note": "Ependymal ciliated cells lining the ventricle.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Ccdc153", "identities": ["Lateral_ventricle"], "direction": "positive", "specificity": "high", "note": "Ependymal cell marker.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Aqp1", "identities": ["Lateral_ventricle"], "direction": "positive", "specificity": "medium", "note": "Aquaporin-1; choroid plexus apical membrane.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Ptgds", "identities": ["Lateral_ventricle"], "direction": "positive", "specificity": "medium", "note": "Prostaglandin D2 synthase (beta-trace); CSF / leptomeningeal / periventricular.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Fxyd1", "identities": ["Lateral_ventricle"], "direction": "positive", "specificity": "medium", "note": "Ependymal / astrocytic cells lining the ventricle.", "citation": "Allen Mouse Brain Atlas"},
+    {"gene": "Dbi", "identities": ["Lateral_ventricle"], "direction": "positive", "specificity": "low", "note": "Diazepam-binding inhibitor; ependyma/astrocyte-enriched, periventricular but broad.", "citation": "Allen Mouse Brain Atlas"}
+  ],
+  "literature": []
+}

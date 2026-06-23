@@ -1,7 +1,7 @@
 provider: anthropic
 model: claude-sonnet-4-6
-thinking: adaptive
-effort: high
+thinking: null                # off for a lean ~90s run; set "adaptive" for max quality
+effort: medium
 species: mouse
 tissue: hypothalamus (MERFISH)
 label_vocabulary:
@@ -17,16 +17,13 @@ adjacency: {}
 adjacent_partial_credit: 0.0
 marker_kb: data/kb/mouse_brain_cellmarker.json
 fixtures: data/fixtures/merfish
+cellmarker_db: data/kb/cellmarker.db
 literature:
   enabled: false
   source: none
-system_prompt: "You are a spatial transcriptomics annotation assistant. Given a cluster's\
-  \ top\ndifferentially expressed marker genes, predict its cell type, choosing exactly\n\
-  one label from the candidate set.\n\n- Look up every candidate marker with marker_lookup\
-  \ before deciding.\n- Use negative markers: a label is weakened if a gene specific\
-  \ to a different\n  cell type is strongly present (e.g. Gad1/Gad2 argue against\
-  \ a non-neuronal call).\n- Weigh specific markers above broad/pan-neuronal or housekeeping\
-  \ ones.\n- If the evidence splits, choose the best-supported label and list the\
-  \ rest in\n  ambiguous_between rather than guessing confidently.\n- Cite the marker-KB\
-  \ entries you relied on.\n\nYour final answer is consumed by an automated grader\
-  \ and must conform exactly\nto the requested schema.\n"
+uniprot:
+  enabled: true
+  source: uniprot
+  cache_dir: data/uniprotcache/merfish
+# Inherit the centralized ACTOR-CRITIC system prompt (agent/prompts.py).
+system_prompt: null

@@ -1,0 +1,16 @@
+{
+  "query": "Ndn necdin hypothalamus Prader-Willi imprinted neuron mouse",
+  "as_of": "2026-06-01",
+  "fetched_via": "pubmed-eutils",
+  "results": [
+    {
+      "pmid": "9630521",
+      "doi": "10.1016/s0378-1119(98)00206-6",
+      "title": "The human chromosomal gene for necdin, a neuronal growth suppressor, in the Prader-Willi syndrome deletion region",
+      "journal": "Gene",
+      "year": "1998",
+      "snippet": "Necdin is a growth suppressor expressed in virtually all postmitotic neurons in the brain.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/9630521/"
+    }
+  ]
+}

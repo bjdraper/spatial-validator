@@ -1,0 +1,52 @@
+# Mouse brain coronal section (10x Visium H&E; squidpy demo dataset).
+# ANATOMICAL-REGION classification — a third task type alongside DLPFC cortical
+# layers and MERFISH cell types. Same agent, new label vocabulary + KB + fixtures.
+# Build fixtures with: python data_prep/build_fixtures_squidpy.py --out data/fixtures/mousebrain/coronal.json
+
+provider: anthropic           # anthropic | openai | ollama  (override with --provider)
+model: claude-sonnet-4-6
+thinking: null                # off for a lean ~90s run; set "adaptive" for max quality
+effort: medium
+
+species: mouse
+tissue: brain (coronal section, 10x Visium H&E)
+
+label_vocabulary: [Cortex, Hippocampus, Thalamus, Hypothalamus, Striatum, Fiber_tract, Lateral_ventricle]
+
+# Region adjacency derived from the Visium hex grid (bordering spots) by
+# data_prep/build_fixtures_squidpy.py — feeds adjacency_rules + partial credit.
+adjacency:
+  Cortex: [Fiber_tract, Hippocampus, Lateral_ventricle, Striatum]
+  Fiber_tract: [Cortex, Hippocampus, Hypothalamus, Lateral_ventricle, Striatum, Thalamus]
+  Hippocampus: [Cortex, Fiber_tract, Hypothalamus, Lateral_ventricle, Thalamus]
+  Hypothalamus: [Fiber_tract, Hippocampus, Lateral_ventricle, Thalamus]
+  Lateral_ventricle: [Cortex, Fiber_tract, Hippocampus, Hypothalamus, Striatum, Thalamus]
+  Striatum: [Cortex, Fiber_tract, Lateral_ventricle]
+  Thalamus: [Fiber_tract, Hippocampus, Hypothalamus, Lateral_ventricle]
+
+# Adjacent regions get partial credit (touching regions are an easy confusion).
+adjacent_partial_credit: 0.5
+
+marker_kb: data/kb/mouse_brain_region_markers.json
+fixtures: data/fixtures/mousebrain
+
+# Reuse the mouse CellMarker 2.0 SQLite index for the Critic's confounder_lookup.
+cellmarker_db: data/kb/cellmarker.db
+
+# UniProt protein-annotation lookup for the Critic (taxon from species=mouse).
+uniprot:
+  enabled: true
+  source: uniprot
+  cache_dir: data/uniprotcache/mousebrain
+
+# Live PubMed + persistent cache (see configs/dlpfc.yaml for the source/as_of notes).
+literature:
+  enabled: true
+  source: pubmed
+  cache_dir: data/litcache/mousebrain
+  top_k: 4
+  as_of: "2026-06-01"
+  ncbi_api_key_env: NCBI_API_KEY
+
+# Inherit the centralized ACTOR-CRITIC system prompt (agent/prompts.py).
+system_prompt: null

@@ -35,6 +35,16 @@ adjacent_partial_credit: 0.5
 marker_kb: data/kb/brain_markers.json
 fixtures: data/fixtures/dlpfc
 
+# CellMarker 2.0 SQLite index for the Critic's confounder_lookup tool.
+cellmarker_db: data/kb/cellmarker.db
+
+# UniProt lookup for the Critic. cache_only keeps a local Ollama run fully
+# offline against the committed snapshot; switch to uniprot for live queries.
+uniprot:
+  enabled: true
+  source: cache_only
+  cache_dir: data/uniprotcache/dlpfc
+
 # Live PubMed + persistent cache. cache_only keeps a local Ollama run fully
 # offline against the committed snapshot; switch to pubmed for live queries.
 literature:
@@ -45,22 +55,5 @@ literature:
   as_of: "2026-06-01"
   ncbi_api_key_env: NCBI_API_KEY
 
-system_prompt: |
-  You are a spatial transcriptomics annotation assistant. Given a cluster's top
-  differentially expressed marker genes, you predict its cell type or tissue
-  layer, choosing exactly one label from the candidate set provided.
-
-  How to work:
-  - Look up every candidate marker gene with marker_lookup before deciding.
-  - Treat negative markers as first-class evidence: a label is weakened if a
-    gene that should be ABSENT for it is present. Record these in negative_checks.
-  - Weigh positive support against negative-marker violations and species/tissue
-    mismatches. A highly specific marker outweighs several non-specific ones.
-  - When two labels are close, use adjacency_rules to check spatial plausibility
-    against the cluster's neighbours.
-  - If the evidence genuinely splits, choose the best-supported label and list
-    the others in ambiguous_between rather than guessing confidently.
-  - Cite the marker-KB entries (and any literature snippets) you relied on.
-
-  Be precise and honest about uncertainty. Your final answer is consumed by an
-  automated grader, so it must conform exactly to the requested schema.
+# Inherit the centralized ACTOR-CRITIC system prompt (agent/prompts.py).
+system_prompt: null

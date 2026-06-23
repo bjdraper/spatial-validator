@@ -4,8 +4,8 @@
 
 provider: anthropic           # anthropic | openai | ollama
 model: claude-sonnet-4-6      # cheaper default; swap to claude-opus-4-8 for the final benchmark
-thinking: adaptive
-effort: high
+thinking: null                # off for a lean ~90s run; set "adaptive" for max quality
+effort: medium
 
 species: mouse
 tissue: hypothalamus (MERFISH)
@@ -19,6 +19,15 @@ adjacent_partial_credit: 0.0
 marker_kb: data/kb/mouse_celltype_markers.json
 fixtures: data/fixtures/merfish
 
+# CellMarker 2.0 SQLite index for the Critic's confounder_lookup tool.
+cellmarker_db: data/kb/cellmarker.db
+
+# UniProt protein-annotation lookup for the Critic (taxon from species=mouse).
+uniprot:
+  enabled: true
+  source: uniprot
+  cache_dir: data/uniprotcache/merfish
+
 # Live PubMed literature search + persistent cache (see configs/dlpfc.yaml for notes).
 literature:
   enabled: true
@@ -28,18 +37,5 @@ literature:
   as_of: "2026-06-01"
   ncbi_api_key_env: NCBI_API_KEY
 
-system_prompt: |
-  You are a spatial transcriptomics annotation assistant. Given a cluster's top
-  differentially expressed marker genes, predict its cell type, choosing exactly
-  one label from the candidate set.
-
-  - Look up every candidate marker with marker_lookup before deciding.
-  - Use negative markers: a label is weakened if a gene specific to a different
-    cell type is strongly present (e.g. Gad1/Gad2 argue against a non-neuronal call).
-  - Weigh specific markers above broad/pan-neuronal or housekeeping ones.
-  - If the evidence splits, choose the best-supported label and list the rest in
-    ambiguous_between rather than guessing confidently.
-  - Cite the marker-KB entries you relied on.
-
-  Your final answer is consumed by an automated grader and must conform exactly
-  to the requested schema.
+# Inherit the centralized ACTOR-CRITIC system prompt (agent/prompts.py).
+system_prompt: null

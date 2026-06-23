@@ -1,0 +1,16 @@
+{
+  "query": "MT3 AND human DLPFC",
+  "as_of": "2026-06-01",
+  "fetched_via": "pubmed-eutils",
+  "results": [
+    {
+      "pmid": "18992145",
+      "doi": "10.1186/1471-244X-8-87",
+      "title": "Putative psychosis genes in the prefrontal cortex: combined analysis of gene expression microarrays",
+      "journal": "BMC Psychiatry",
+      "year": "2008",
+      "snippet": "Recent studies have shown similarities between schizophrenia and bipolar disorder in phenotypes and in genotypes, and those studies have contributed to an ongoing re-evaluation of the traditional dichotomy between schizophrenia and bipolar disorder.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/18992145/"
+    }
+  ]
+}

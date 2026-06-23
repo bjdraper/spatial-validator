@@ -1,0 +1,25 @@
+{
+  "query": "Peg3 imprinted gene hypothalamus neurons mouse brain",
+  "as_of": "2026-06-01",
+  "fetched_via": "pubmed-eutils",
+  "results": [
+    {
+      "pmid": "24582979",
+      "doi": "10.1016/j.gene.2014.02.056",
+      "title": "APeg3: regulation of Peg3 through an evolutionarily conserved ncRNA",
+      "journal": "Gene",
+      "year": "2014",
+      "snippet": "Mammalian APeg3 is an antisense gene that is localized within the 3'-untranslated region of the imprinted gene, Peg3.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/24582979/"
+    },
+    {
+      "pmid": "10195900",
+      "doi": "10.1126/science.284.5412.330",
+      "title": "Regulation of maternal behavior and offspring growth by paternally expressed Peg3",
+      "journal": "Science",
+      "year": "1999",
+      "snippet": "Imprinted genes display parent-of-origin-dependent monoallelic expression that apparently regulates complex mammalian traits, including growth and behavior.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/10195900/"
+    }
+  ]
+}

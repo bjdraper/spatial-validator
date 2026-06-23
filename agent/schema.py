@@ -15,9 +15,42 @@ def prediction_schema(labels):
     return {
         "type": "object",
         "properties": {
+            # Actor: the primary hypothesis, before the Critic stress-tested it.
+            "initial_hypothesis": {"type": "string"},
             "predicted_label": {"type": "string", "enum": list(labels)},
             "confidence": {"type": "string", "enum": ["high", "medium", "low"]},
+            # Critic: risk that the resolved label is a misclassification.
+            "vulnerability_score": {
+                "type": "string",
+                "enum": ["high", "medium", "low"],
+            },
             "supporting_genes": {
+                "type": "array",
+                "items": {"type": "string"},
+            },
+            # Critic: per-DEG discrimination — housekeeping vs biomarker, and
+            # which cell types / tissue the marker pertains to.
+            "gene_classification": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "gene": {"type": "string"},
+                        "role": {
+                            "type": "string",
+                            "enum": ["biomarker", "housekeeping", "ambiguous"],
+                        },
+                        "pertains_to": {
+                            "type": "array",
+                            "items": {"type": "string"},
+                        },
+                    },
+                    "required": ["gene", "role", "pertains_to"],
+                    "additionalProperties": False,
+                },
+            },
+            # Critic: named co-expression signatures the DEG set matches.
+            "detected_panels": {
                 "type": "array",
                 "items": {"type": "string"},
             },
@@ -36,9 +69,13 @@ def prediction_schema(labels):
             },
         },
         "required": [
+            "initial_hypothesis",
             "predicted_label",
             "confidence",
+            "vulnerability_score",
             "supporting_genes",
+            "gene_classification",
+            "detected_panels",
             "negative_checks",
             "ambiguous_between",
             "reasoning",

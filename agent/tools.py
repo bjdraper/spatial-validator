@@ -57,6 +57,43 @@ TOOLS = [
             "required": ["label"],
         },
     },
+    {
+        "name": "confounder_lookup",
+        "description": (
+            "CRITIC TOOL. List every cell type that CellMarker 2.0 reports this "
+            "gene as a marker for, across all tissues, with a promiscuity / "
+            "specificity verdict. Use it to expose SHARED or non-specific markers "
+            "(a gene claimed by many cell types weakly discriminates between them) "
+            "and to flag housekeeping-like genes. A gene reported for a single "
+            "cell type is a candidate specific biomarker. Call this on the top "
+            "DEGs to test whether the hypothesis rests on confoundable markers."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "gene": {"type": "string", "description": "Gene symbol, e.g. Gad1"}
+            },
+            "required": ["gene"],
+        },
+    },
+    {
+        "name": "uniprot_lookup",
+        "description": (
+            "CRITIC TOOL. Fetch UniProt functional annotation for a gene/protein: "
+            "molecular function, subcellular localization, and keywords. Use it to "
+            "judge whether a DEG is a specialised cell-type biomarker (e.g. a "
+            "lineage transcription factor, a synaptic protein) or a ubiquitous "
+            "housekeeping protein (cytoskeleton, ribosome, metabolism) that should "
+            "not drive a cell-type call."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "gene": {"type": "string", "description": "Gene symbol, e.g. RORB"}
+            },
+            "required": ["gene"],
+        },
+    },
 ]
 
 
@@ -102,6 +139,18 @@ def search_literature(query, cfg, kb):
     return {"query": query, "matches": matches[:5]}
 
 
+def confounder_lookup(gene, cfg, kb):
+    # CellMarker 2.0 SQLite promiscuity/confounder oracle (see agent/cellmarker.py).
+    from . import cellmarker
+    return cellmarker.confounder_lookup(gene, cfg)
+
+
+def uniprot_lookup(gene, cfg, kb):
+    # UniProt REST function/localization annotation, cached (see agent/uniprot.py).
+    from . import uniprot
+    return uniprot.lookup(gene, cfg)
+
+
 def adjacency_rules(label, cfg, kb):
     adj = cfg.get("adjacency") or {}
     if not adj:
@@ -120,6 +169,8 @@ _DISPATCH = {
     "marker_lookup": lambda a, c, k: marker_lookup(a.get("gene", ""), c, k),
     "search_literature": lambda a, c, k: search_literature(a.get("query", ""), c, k),
     "adjacency_rules": lambda a, c, k: adjacency_rules(a.get("label", ""), c, k),
+    "confounder_lookup": lambda a, c, k: confounder_lookup(a.get("gene", ""), c, k),
+    "uniprot_lookup": lambda a, c, k: uniprot_lookup(a.get("gene", ""), c, k),
 }
 
 

@@ -1,0 +1,199 @@
+{
+  "dataset": "squidpy visium_hne (mouse brain coronal, 10x Visium H&E)",
+  "section_id": "coronal",
+  "clusters": [
+    {
+      "cluster_id": "Cortex",
+      "ground_truth": "Cortex",
+      "top_genes": [
+        "Stx1a",
+        "Mef2c",
+        "Camk2n1",
+        "Slc17a7",
+        "Olfm1",
+        "Nrgn",
+        "Ttc9b",
+        "Nptxr",
+        "Arpp21",
+        "Chn1",
+        "Gpm6a",
+        "Calm1",
+        "Sv2b",
+        "Tbr1",
+        "Tmem132a"
+      ],
+      "neighbors": [
+        "Fiber_tract",
+        "Hippocampus",
+        "Lateral_ventricle",
+        "Striatum"
+      ]
+    },
+    {
+      "cluster_id": "Fiber_tract",
+      "ground_truth": "Fiber_tract",
+      "top_genes": [
+        "Mbp",
+        "Fth1",
+        "Mobp",
+        "Mal",
+        "Plp1",
+        "Cnp",
+        "Plekhb1",
+        "Cryab",
+        "Qdpr",
+        "Cldn11",
+        "Mag",
+        "Sept4",
+        "Csrp1",
+        "Tspan2",
+        "Bcas1"
+      ],
+      "neighbors": [
+        "Cortex",
+        "Hippocampus",
+        "Hypothalamus",
+        "Lateral_ventricle",
+        "Striatum",
+        "Thalamus"
+      ]
+    },
+    {
+      "cluster_id": "Hippocampus",
+      "ground_truth": "Hippocampus",
+      "top_genes": [
+        "Cnih2",
+        "Cabp7",
+        "Psd",
+        "Mt3",
+        "Hpca",
+        "Ddn",
+        "Camk2a",
+        "Kcnab2",
+        "Wipf3",
+        "Zbtb20",
+        "Nsmf",
+        "Camta2",
+        "Sptbn2",
+        "Adgrb2",
+        "Selenow"
+      ],
+      "neighbors": [
+        "Cortex",
+        "Fiber_tract",
+        "Hypothalamus",
+        "Lateral_ventricle",
+        "Thalamus"
+      ]
+    },
+    {
+      "cluster_id": "Hypothalamus",
+      "ground_truth": "Hypothalamus",
+      "top_genes": [
+        "Sparc",
+        "Nap1l5",
+        "Peg3",
+        "Resp18",
+        "Ndn",
+        "Tmem130",
+        "Nrsn2",
+        "Agt",
+        "Podxl2",
+        "Impact",
+        "Gprasp2",
+        "Scg2",
+        "Ahi1",
+        "Itih3",
+        "Dlk1"
+      ],
+      "neighbors": [
+        "Fiber_tract",
+        "Hippocampus",
+        "Lateral_ventricle",
+        "Thalamus"
+      ]
+    },
+    {
+      "cluster_id": "Lateral_ventricle",
+      "ground_truth": "Lateral_ventricle",
+      "top_genes": [
+        "Fxyd1",
+        "Dbi",
+        "Apoe",
+        "Ifitm3",
+        "Id3",
+        "Rbp1",
+        "Vim",
+        "Cd63",
+        "Ptgds",
+        "Clu",
+        "Prelp",
+        "Gng5",
+        "Pltp",
+        "Ftl1",
+        "Aebp1"
+      ],
+      "neighbors": [
+        "Cortex",
+        "Fiber_tract",
+        "Hippocampus",
+        "Hypothalamus",
+        "Striatum",
+        "Thalamus"
+      ]
+    },
+    {
+      "cluster_id": "Striatum",
+      "ground_truth": "Striatum",
+      "top_genes": [
+        "Penk",
+        "Tac1",
+        "Ly6h",
+        "Myh7",
+        "Rplp1",
+        "Itm2c",
+        "Hap1",
+        "Tmem158",
+        "Zcchc12",
+        "Pnmal2",
+        "Slc32a1",
+        "Gaa",
+        "Sv2c",
+        "Pnck",
+        "Tmem91"
+      ],
+      "neighbors": [
+        "Cortex",
+        "Fiber_tract",
+        "Lateral_ventricle"
+      ]
+    },
+    {
+      "cluster_id": "Thalamus",
+      "ground_truth": "Thalamus",
+      "top_genes": [
+        "Tcf7l2",
+        "Slc17a6",
+        "Prkcd",
+        "Amotl1",
+        "Ntng1",
+        "Rims3",
+        "Pdp1",
+        "Zic1",
+        "Adarb1",
+        "Synpo2",
+        "Shox2",
+        "Slc6a11",
+        "Cit",
+        "Ramp3",
+        "Ccdc136"
+      ],
+      "neighbors": [
+        "Fiber_tract",
+        "Hippocampus",
+        "Hypothalamus",
+        "Lateral_ventricle"
+      ]
+    }
+  ]
+}
