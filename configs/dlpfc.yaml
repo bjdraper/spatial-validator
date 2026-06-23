@@ -1,0 +1,54 @@
+# DLPFC (Maynard et al. 2021) — human dorsolateral prefrontal cortex, 10x Visium.
+# Swapping this file for another dataset's config reuses the agent unchanged.
+
+# Model & generation settings — switch these to trade cost vs quality:
+#   claude-opus-4-8    (best,     $5/$25 per MTok)  thinking: adaptive, effort: high
+#   claude-sonnet-4-6  (balanced, $3/$15)           thinking: adaptive, effort: high|medium
+#   claude-haiku-4-5   (cheapest, $1/$5)            thinking: null,     effort: null
+#                                                   (Haiku doesn't support thinking/effort)
+provider: anthropic           # anthropic | openai | ollama (see configs/dlpfc.ollama.yaml)
+model: claude-sonnet-4-6      # cheaper default; swap to claude-opus-4-8 for the final benchmark
+thinking: adaptive            # "adaptive", or null for Haiku  (anthropic only)
+effort: high                  # low|medium|high|max, or null for Haiku  (anthropic only)
+
+species: human
+tissue: dorsolateral prefrontal cortex (DLPFC)
+
+# The 7-class expert annotation scheme. This is also the structured-output enum.
+label_vocabulary: [L1, L2, L3, L4, L5, L6, WM]
+
+# Cortical layers are an ordered stack; this feeds the adjacency_rules tool.
+adjacency:
+  L1: [L2]
+  L2: [L1, L3]
+  L3: [L2, L4]
+  L4: [L3, L5]
+  L5: [L4, L6]
+  L6: [L5, WM]
+  WM: [L6]
+
+# Scoring: exact match = 1.0; an adjacent layer = this partial credit; else 0.
+adjacent_partial_credit: 0.5
+
+marker_kb: data/kb/brain_markers.json
+fixtures: data/fixtures/dlpfc
+
+system_prompt: |
+  You are a spatial transcriptomics annotation assistant. Given a cluster's top
+  differentially expressed marker genes, you predict its cell type or tissue
+  layer, choosing exactly one label from the candidate set provided.
+
+  How to work:
+  - Look up every candidate marker gene with marker_lookup before deciding.
+  - Treat negative markers as first-class evidence: a label is weakened if a
+    gene that should be ABSENT for it is present. Record these in negative_checks.
+  - Weigh positive support against negative-marker violations and species/tissue
+    mismatches. A highly specific marker outweighs several non-specific ones.
+  - When two labels are close, use adjacency_rules to check spatial plausibility
+    against the cluster's neighbours.
+  - If the evidence genuinely splits, choose the best-supported label and list
+    the others in ambiguous_between rather than guessing confidently.
+  - Cite the marker-KB entries (and any literature snippets) you relied on.
+
+  Be precise and honest about uncertainty. Your final answer is consumed by an
+  automated grader, so it must conform exactly to the requested schema.

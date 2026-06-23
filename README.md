@@ -1,82 +1,91 @@
-# Evaluation datasets — download & cluster build
+# Literature-Guided Spatial Marker & Cell-Type Validator
 
-Code to download the two public spatial-transcriptomics datasets used to
-evaluate the **Literature-Guided Spatial Marker & Cell-Type Validator** and turn
-them into the per-cluster fixtures the agent is scored on.
-
-A *cluster* = one expert-annotated group (a cortical layer, or a cell type)
-represented by its top differentially-expressed marker genes plus its
-ground-truth label. The scripts here fetch the raw data, compute per-cluster DE,
-and write the fixtures to `data/fixtures/<dataset>/*.json`.
+An evaluable AI agent for the **interpretation** step of a spatial-RNASeq
+workflow. Given a cluster's top differentially expressed marker genes, it
+predicts the cell type / tissue layer — using a marker knowledge base, negative
+markers, spatial adjacency, and literature — and emits a structured, cited
+prediction that is scored against expert annotations.
 
 > **Data classification: PRIVATE.** The underlying datasets are public and
 > de-identified (DLPFC is post-mortem human; MERFISH is mouse), but the built
 > fixtures in this repo are treated as PRIVATE. Confirm the destination repo's
 > visibility before sharing. No PHI/PII is present.
 
-## What gets built
+## Provider-agnostic — runs on Claude, Codex, or local Ollama models
 
-| Dataset | Source package | Clusters | Builder |
+The model layer is fully decoupled (`agent/providers.py` is the *only*
+vendor-aware file). The same agent logic, KBs, prompts, and scoring run against
+any of three backends — pick one with `provider:` in the config, or override
+per run with `--provider`:
+
+| Provider | `provider:` | Auth | Example |
 |---|---|---|---|
-| Human DLPFC (10x Visium) | `spatialLIBD` (R/Bioconductor) | 33 (5 sections, layers L1–L6 + WM) | `data_prep/fetch_dlpfc.R` |
-| Mouse hypothalamus (MERFISH) | `squidpy` (Python) | 8 cell types (1 region) | `data_prep/fetch_merfish.py` |
-
-Full provenance, access routes, and citations: see [`DATASETS.md`](DATASETS.md).
-
-## Quick start
-
-### DLPFC (R / spatialLIBD — recommended)
+| **Anthropic** (Claude) | `anthropic` | `ANTHROPIC_API_KEY` | `claude-sonnet-4-6`, `claude-opus-4-8` |
+| **OpenAI / Codex** (or any OpenAI-compatible endpoint) | `openai` | `OPENAI_API_KEY` (+ optional `base_url`) | `gpt-4o` |
+| **Ollama** (local, offline, no key) | `ollama` | none | `llama3.2`, `qwen2.5:14b` |
 
 ```bash
-Rscript data_prep/fetch_dlpfc.R
+# Claude (default — configs/dlpfc.yaml sets provider: anthropic)
+python eval/run_eval.py --config configs/dlpfc.yaml
+
+# OpenAI / Codex
+python eval/run_eval.py --config configs/dlpfc.yaml --provider openai --model gpt-4o
+
+# Local model via Ollama — no API key, runs offline
+python eval/run_eval.py --config configs/dlpfc.ollama.yaml --limit 2
 ```
 
-First run installs `spatialLIBD` + `scran` + `scuttle` from Bioconductor and
-downloads the ~2 GB `SpatialExperiment` (cached by ExperimentHub afterwards).
-Edit `SECTIONS` at the top of the script to pick which sections to build
-(default: `151507, 151510, 151669, 151673, 151676` — spans all 3 donors).
-Writes `data/fixtures/dlpfc/<section>.json`.
+`provider: openai` also accepts `base_url:` for any OpenAI-compatible server.
+Local models must support **tool-calling** to gather marker evidence (llama3.2
+does; pull a stronger model like `qwen2.5:14b` for better accuracy).
 
-### MERFISH (Python / squidpy)
+## Why it's evaluable
+
+Benchmarked on the **DLPFC (Maynard et al. 2021)** dataset: every spot is
+expert-annotated into one of 7 classes (L1–L6, WM), so scoring is objective
+(accuracy + confusion matrix). Runs per cluster in well under 90s, no model
+training, public de-identified data only. A second dataset (MERFISH mouse
+hypothalamus) proves the design generalizes to a cell-type task with a different
+label vocabulary — same agent code, new config + KB + fixtures.
+
+## Layout
+
+```
+agent/        dataset-AGNOSTIC core — never edited per dataset
+  loop.py       bounded, auditable agent loop (caps + full trace)
+  providers.py  provider-agnostic model layer (anthropic | openai | ollama)
+  tools.py      marker_lookup, search_literature, adjacency_rules (read-only)
+  schema.py     structured-output contract (label enum from config)
+configs/      one YAML per dataset+provider (model, labels, adjacency, KB, prompt)
+data/
+  kb/           marker knowledge base(s)
+  fixtures/     per-cluster DE genes + ground-truth labels
+eval/run_eval.py   loop the fixtures, score, write traces
+data_prep/    offline: fetch dataset + build fixtures (see data_prep/README.md)
+docs/         design notes, teaching guide, dataset provenance
+```
+
+Adding a dataset = a new `configs/*.yaml` + its KB and fixtures. No agent edits.
+
+## Setup
 
 ```bash
-pip install -r requirements-data.txt   # plus: pip install squidpy
-python data_prep/fetch_merfish.py
+pip install -r requirements.txt        # PyYAML + the provider SDK(s) you use
+cp .env.example .env                    # add keys for the API providers you use
 ```
 
-One call to `squidpy.datasets.merfish()` (cached locally), collapses the 16
-fine-grained classes into 8 major cell types, drops control probes / Ambiguous.
-Writes `data/fixtures/merfish/hypothalamus.json`.
+`requirements.txt` lists both `anthropic` and `openai` — install only what your
+chosen provider needs. Ollama needs no Python key (just a running `ollama serve`).
 
-### DLPFC alternative (Python / scanpy)
+## Datasets
 
-If you already have a labelled section as `.h5ad`:
+Fixtures (the per-cluster "clusters") ship pre-built in `data/fixtures/`. To
+regenerate them from the raw public datasets, see **[`data_prep/README.md`](data_prep/README.md)**;
+full provenance and citations are in **[`DATASETS.md`](DATASETS.md)**.
 
-```bash
-pip install -r requirements-data.txt
-python data_prep/build_fixtures.py \
-    --h5ad data/raw/151673.h5ad --section 151673 --label-col layer
-```
+## Control / reproducibility
 
-## Verifying your run
-
-`data/fixtures/` ships with reference outputs already built from the sections
-above. After running the scripts, your regenerated JSON should match these
-(top-15 genes per cluster + ground-truth label). They're the contract the eval
-loads — same shape regardless of which route built them:
-
-```json
-{
-  "dataset": "...",
-  "section_id": "...",
-  "clusters": [
-    {"cluster_id": "L1", "ground_truth": "L1", "top_genes": ["...", "..."], "neighbors": []}
-  ]
-}
-```
-
-## Requirements
-
-- **DLPFC:** R (≥4.x) with Bioconductor — packages auto-install on first run.
-- **MERFISH / scanpy route:** Python — `pip install -r requirements-data.txt`
-  (scanpy/anndata/pandas/numpy); plus `squidpy` for the MERFISH fetch.
+- Hard caps on iterations, tool calls, and wall-clock time.
+- Model id + provider pinned in config; full per-cluster trace written to `runs/`.
+- Tools are read-only; the prediction is schema-validated.
+- `--resume` reuses prior successful predictions and re-runs only errors.

@@ -1,0 +1,7 @@
+# Core agent + eval runtime. Pin exact versions after install: pip freeze
+PyYAML>=6.0
+
+# Model providers — install the one(s) you use (configs pick via `provider:`):
+anthropic            # provider: anthropic  (Claude)
+openai>=1.0          # provider: openai (OpenAI/Codex) AND provider: ollama
+                     #   Ollama reuses the OpenAI client against localhost:11434/v1

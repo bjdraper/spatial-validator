@@ -1,0 +1,73 @@
+{
+  "_note": "Seed cell-type marker KB for mouse brain/hypothalamus (MERFISH). Canonical markers; expand after inspecting the actual DE genes per class. Mouse gene symbols (Title case).",
+  "species": "mouse",
+  "tissue": "hypothalamus",
+  "markers": [
+    {"gene": "Slc17a6", "identities": ["Excitatory"], "direction": "positive", "specificity": "high", "note": "Vglut2; excitatory (glutamatergic) neurons.", "citation": "canonical mouse marker"},
+    {"gene": "Slc17a7", "identities": ["Excitatory"], "direction": "positive", "specificity": "high", "note": "Vglut1; excitatory neurons.", "citation": "canonical mouse marker"},
+    {"gene": "Gad1", "identities": ["Inhibitory"], "direction": "positive", "specificity": "high", "note": "GABAergic / inhibitory neurons.", "citation": "canonical mouse marker"},
+    {"gene": "Gad2", "identities": ["Inhibitory"], "direction": "positive", "specificity": "high", "note": "GABAergic / inhibitory neurons.", "citation": "canonical mouse marker"},
+    {"gene": "Slc32a1", "identities": ["Inhibitory"], "direction": "positive", "specificity": "high", "note": "Vgat; inhibitory neurons.", "citation": "canonical mouse marker"},
+
+    {"gene": "Aqp4", "identities": ["Astrocyte"], "direction": "positive", "specificity": "high", "note": "Astrocyte.", "citation": "canonical mouse marker"},
+    {"gene": "Aldh1l1", "identities": ["Astrocyte"], "direction": "positive", "specificity": "high", "note": "Pan-astrocyte.", "citation": "canonical mouse marker"},
+    {"gene": "Gja1", "identities": ["Astrocyte"], "direction": "positive", "specificity": "high", "note": "Connexin-43; astrocyte.", "citation": "canonical mouse marker"},
+    {"gene": "Gfap", "identities": ["Astrocyte"], "direction": "positive", "specificity": "medium", "note": "Astrocyte (reactive-biased).", "citation": "canonical mouse marker"},
+    {"gene": "Slc1a3", "identities": ["Astrocyte"], "direction": "positive", "specificity": "medium", "note": "GLAST; astrocyte.", "citation": "canonical mouse marker"},
+
+    {"gene": "Mbp", "identities": ["Oligodendrocyte"], "direction": "positive", "specificity": "high", "note": "Myelin; mature oligodendrocyte.", "citation": "canonical mouse marker"},
+    {"gene": "Plp1", "identities": ["Oligodendrocyte"], "direction": "positive", "specificity": "high", "note": "Oligodendrocyte/myelin.", "citation": "canonical mouse marker"},
+    {"gene": "Mobp", "identities": ["Oligodendrocyte"], "direction": "positive", "specificity": "high", "note": "Oligodendrocyte/myelin.", "citation": "canonical mouse marker"},
+    {"gene": "Sox10", "identities": ["Oligodendrocyte"], "direction": "positive", "specificity": "high", "note": "Oligodendrocyte lineage.", "citation": "canonical mouse marker"},
+    {"gene": "Mag", "identities": ["Oligodendrocyte"], "direction": "positive", "specificity": "high", "note": "Myelin-associated glycoprotein.", "citation": "canonical mouse marker"},
+    {"gene": "Cnp", "identities": ["Oligodendrocyte"], "direction": "positive", "specificity": "medium", "note": "Oligodendrocyte.", "citation": "canonical mouse marker"},
+    {"gene": "Olig1", "identities": ["Oligodendrocyte"], "direction": "positive", "specificity": "medium", "note": "Oligodendrocyte lineage (also OPC).", "citation": "canonical mouse marker"},
+    {"gene": "Olig2", "identities": ["Oligodendrocyte"], "direction": "positive", "specificity": "medium", "note": "Oligodendrocyte lineage (also OPC).", "citation": "canonical mouse marker"},
+
+    {"gene": "Cx3cr1", "identities": ["Microglia"], "direction": "positive", "specificity": "high", "note": "Microglia.", "citation": "canonical mouse marker"},
+    {"gene": "C1qa", "identities": ["Microglia"], "direction": "positive", "specificity": "high", "note": "Microglia/complement.", "citation": "canonical mouse marker"},
+    {"gene": "C1qb", "identities": ["Microglia"], "direction": "positive", "specificity": "high", "note": "Microglia/complement.", "citation": "canonical mouse marker"},
+    {"gene": "Csf1r", "identities": ["Microglia"], "direction": "positive", "specificity": "high", "note": "Microglia/myeloid.", "citation": "canonical mouse marker"},
+    {"gene": "P2ry12", "identities": ["Microglia"], "direction": "positive", "specificity": "high", "note": "Homeostatic microglia.", "citation": "canonical mouse marker"},
+    {"gene": "Ctss", "identities": ["Microglia"], "direction": "positive", "specificity": "medium", "note": "Microglia/myeloid.", "citation": "canonical mouse marker"},
+    {"gene": "Selplg", "identities": ["Microglia"], "direction": "positive", "specificity": "low", "note": "Microglia (also broad immune).", "citation": "canonical mouse marker"},
+
+    {"gene": "Cldn5", "identities": ["Endothelial"], "direction": "positive", "specificity": "high", "note": "Endothelial tight junction.", "citation": "canonical mouse marker"},
+    {"gene": "Pecam1", "identities": ["Endothelial"], "direction": "positive", "specificity": "high", "note": "CD31; endothelial.", "citation": "canonical mouse marker"},
+    {"gene": "Flt1", "identities": ["Endothelial"], "direction": "positive", "specificity": "high", "note": "VEGFR1; endothelial.", "citation": "canonical mouse marker"},
+    {"gene": "Slco1a4", "identities": ["Endothelial"], "direction": "positive", "specificity": "medium", "note": "Brain endothelial.", "citation": "canonical mouse marker"},
+    {"gene": "Tek", "identities": ["Endothelial"], "direction": "positive", "specificity": "medium", "note": "Tie2; endothelial.", "citation": "canonical mouse marker"},
+
+    {"gene": "Foxj1", "identities": ["Ependymal"], "direction": "positive", "specificity": "high", "note": "Ciliated ependymal.", "citation": "canonical mouse marker"},
+    {"gene": "Ccdc153", "identities": ["Ependymal"], "direction": "positive", "specificity": "medium", "note": "Ependymal/cilia.", "citation": "canonical mouse marker"},
+    {"gene": "Tmem212", "identities": ["Ependymal"], "direction": "positive", "specificity": "medium", "note": "Ependymal/cilia.", "citation": "canonical mouse marker"},
+    {"gene": "Rarres2", "identities": ["Ependymal"], "direction": "positive", "specificity": "low", "note": "Ependymal-associated (also broad).", "citation": "canonical mouse marker"},
+
+    {"gene": "Pdgfrb", "identities": ["Pericytes"], "direction": "positive", "specificity": "high", "note": "Pericyte/mural.", "citation": "canonical mouse marker"},
+    {"gene": "Rgs5", "identities": ["Pericytes"], "direction": "positive", "specificity": "high", "note": "Pericyte/mural.", "citation": "canonical mouse marker"},
+    {"gene": "Kcnj8", "identities": ["Pericytes"], "direction": "positive", "specificity": "medium", "note": "Pericyte.", "citation": "canonical mouse marker"},
+    {"gene": "Anpep", "identities": ["Pericytes"], "direction": "positive", "specificity": "medium", "note": "Pericyte/mural (also broad).", "citation": "canonical mouse marker"},
+
+    {"gene": "Mlc1", "identities": ["Astrocyte"], "direction": "positive", "specificity": "high", "note": "Astrocyte (also tanycyte/ependymal in hypothalamus - can blur Astro/Ependymal).", "citation": "data-grounded; canonical astrocyte marker"},
+    {"gene": "Ttyh2", "identities": ["Astrocyte", "Oligodendrocyte"], "direction": "positive", "specificity": "low", "note": "Glial; shared astro/oligo - weak discriminator.", "citation": "data-grounded"},
+    {"gene": "Ermn", "identities": ["Oligodendrocyte"], "direction": "positive", "specificity": "high", "note": "Ermin; oligodendrocyte/myelin.", "citation": "data-grounded; canonical oligodendrocyte marker"},
+    {"gene": "Gjc3", "identities": ["Oligodendrocyte"], "direction": "positive", "specificity": "high", "note": "Connexin-29; oligodendrocyte.", "citation": "data-grounded; canonical oligodendrocyte marker"},
+    {"gene": "Sox8", "identities": ["Oligodendrocyte"], "direction": "positive", "specificity": "medium", "note": "Oligodendrocyte lineage (also glial).", "citation": "data-grounded"},
+    {"gene": "Cd24a", "identities": ["Ependymal"], "direction": "positive", "specificity": "medium", "note": "Ependymal/ciliated (also broad epithelial).", "citation": "data-grounded"},
+    {"gene": "Nnat", "identities": ["Ependymal"], "direction": "positive", "specificity": "low", "note": "Ependymal/neuroendocrine; weak.", "citation": "data-grounded"},
+    {"gene": "Slc15a3", "identities": ["Microglia"], "direction": "positive", "specificity": "medium", "note": "Myeloid/microglia (this panel lacks Cx3cr1/C1qa).", "citation": "data-grounded"},
+    {"gene": "Sema4d", "identities": ["Microglia"], "direction": "positive", "specificity": "low", "note": "Immune/microglia; weak.", "citation": "data-grounded"},
+    {"gene": "Myh11", "identities": ["Pericytes"], "direction": "positive", "specificity": "high", "note": "Smooth-muscle/mural (vascular).", "citation": "data-grounded; canonical mural marker"},
+    {"gene": "Lmod1", "identities": ["Pericytes"], "direction": "positive", "specificity": "high", "note": "Smooth-muscle/mural.", "citation": "data-grounded"},
+    {"gene": "Fn1", "identities": ["Endothelial", "Pericytes"], "direction": "positive", "specificity": "low", "note": "Fibronectin; vascular/mural, shared - weak discriminator.", "citation": "data-grounded"},
+    {"gene": "Igf1r", "identities": ["Endothelial"], "direction": "positive", "specificity": "low", "note": "Brain endothelial-associated.", "citation": "data-grounded"},
+    {"gene": "Cbln2", "identities": ["Excitatory"], "direction": "positive", "specificity": "medium", "note": "Cerebellin-2; excitatory neurons.", "citation": "data-grounded"},
+    {"gene": "Syt4", "identities": ["Excitatory", "Inhibitory"], "direction": "positive", "specificity": "low", "note": "Pan-neuronal synaptic.", "citation": "pan-neuronal marker"},
+    {"gene": "Gabra1", "identities": ["Excitatory", "Inhibitory"], "direction": "positive", "specificity": "low", "note": "GABA-A subunit; broadly neuronal.", "citation": "pan-neuronal marker"},
+
+    {"gene": "Snap25", "identities": ["Excitatory", "Inhibitory"], "direction": "positive", "specificity": "low", "note": "Pan-neuronal; confirms neuron, not subtype.", "citation": "pan-neuronal marker"},
+    {"gene": "Syt1", "identities": ["Excitatory", "Inhibitory"], "direction": "positive", "specificity": "low", "note": "Pan-neuronal synaptic.", "citation": "pan-neuronal marker"},
+    {"gene": "Meg3", "identities": ["Excitatory", "Inhibitory"], "direction": "positive", "specificity": "low", "note": "Pan-neuronal lncRNA.", "citation": "pan-neuronal marker"}
+  ],
+  "literature": []
+}

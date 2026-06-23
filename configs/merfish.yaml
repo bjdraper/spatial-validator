@@ -1,0 +1,36 @@
+# MERFISH mouse hypothalamus (Moffitt et al. 2018) — CELL-TYPE prediction.
+# Same agent, different label vocabulary + KB. Proves the config-driven design
+# generalizes beyond cortical layers. Mouse data -> no PHI.
+
+provider: anthropic           # anthropic | openai | ollama
+model: claude-sonnet-4-6      # cheaper default; swap to claude-opus-4-8 for the final benchmark
+thinking: adaptive
+effort: high
+
+species: mouse
+tissue: hypothalamus (MERFISH)
+
+label_vocabulary: [Excitatory, Inhibitory, Astrocyte, Oligodendrocyte, Endothelial, Microglia, Ependymal, Pericytes]
+
+# Cell types are not a spatial stack — no adjacency constraints.
+adjacency: {}
+adjacent_partial_credit: 0.0
+
+marker_kb: data/kb/mouse_celltype_markers.json
+fixtures: data/fixtures/merfish
+
+system_prompt: |
+  You are a spatial transcriptomics annotation assistant. Given a cluster's top
+  differentially expressed marker genes, predict its cell type, choosing exactly
+  one label from the candidate set.
+
+  - Look up every candidate marker with marker_lookup before deciding.
+  - Use negative markers: a label is weakened if a gene specific to a different
+    cell type is strongly present (e.g. Gad1/Gad2 argue against a non-neuronal call).
+  - Weigh specific markers above broad/pan-neuronal or housekeeping ones.
+  - If the evidence splits, choose the best-supported label and list the rest in
+    ambiguous_between rather than guessing confidently.
+  - Cite the marker-KB entries you relied on.
+
+  Your final answer is consumed by an automated grader and must conform exactly
+  to the requested schema.

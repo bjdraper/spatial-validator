@@ -7,6 +7,9 @@ __pycache__/
 .venv/
 venv/
 
+# Eval outputs / traces
+runs/
+
 # Large raw data — fetched on demand, never committed
 data/raw/
 *.h5ad

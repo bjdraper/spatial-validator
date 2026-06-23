@@ -1,0 +1,56 @@
+# DLPFC config for a LOCAL model via Ollama (no API key, runs offline).
+# Same dataset/KB/prompt as configs/dlpfc.yaml — only the model layer differs.
+#
+#   ollama serve                       # if not already running
+#   ollama pull llama3.2               # tool-calling capable; see note below
+#   python eval/run_eval.py --config configs/dlpfc.ollama.yaml --limit 2
+#
+# Note on local models: the agent relies on tool-calling to gather marker
+# evidence. llama3.2 supports tools; pure reasoning models (e.g. deepseek-r1)
+# may not call tools reliably under Ollama — they'll still emit a final
+# prediction but with less evidence. For best local quality pull a larger
+# tool-capable model, e.g. `ollama pull qwen2.5:14b` and set model: qwen2.5:14b.
+
+provider: ollama
+model: llama3.2               # any local tool-capable model you've `ollama pull`ed
+# base_url: http://localhost:11434/v1   # default; override for a remote Ollama host
+temperature: 0                # deterministic-ish for reproducible eval
+
+species: human
+tissue: dorsolateral prefrontal cortex (DLPFC)
+
+label_vocabulary: [L1, L2, L3, L4, L5, L6, WM]
+
+adjacency:
+  L1: [L2]
+  L2: [L1, L3]
+  L3: [L2, L4]
+  L4: [L3, L5]
+  L5: [L4, L6]
+  L6: [L5, WM]
+  WM: [L6]
+
+adjacent_partial_credit: 0.5
+
+marker_kb: data/kb/brain_markers.json
+fixtures: data/fixtures/dlpfc
+
+system_prompt: |
+  You are a spatial transcriptomics annotation assistant. Given a cluster's top
+  differentially expressed marker genes, you predict its cell type or tissue
+  layer, choosing exactly one label from the candidate set provided.
+
+  How to work:
+  - Look up every candidate marker gene with marker_lookup before deciding.
+  - Treat negative markers as first-class evidence: a label is weakened if a
+    gene that should be ABSENT for it is present. Record these in negative_checks.
+  - Weigh positive support against negative-marker violations and species/tissue
+    mismatches. A highly specific marker outweighs several non-specific ones.
+  - When two labels are close, use adjacency_rules to check spatial plausibility
+    against the cluster's neighbours.
+  - If the evidence genuinely splits, choose the best-supported label and list
+    the others in ambiguous_between rather than guessing confidently.
+  - Cite the marker-KB entries (and any literature snippets) you relied on.
+
+  Be precise and honest about uncertainty. Your final answer is consumed by an
+  automated grader, so it must conform exactly to the requested schema.
