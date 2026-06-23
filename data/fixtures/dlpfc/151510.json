@@ -1,0 +1,160 @@
+{
+  "dataset": "DLPFC (Maynard 2021)",
+  "section_id": "151510",
+  "clusters": [
+    {
+      "cluster_id": "L1",
+      "ground_truth": "L1",
+      "top_genes": [
+        "GFAP",
+        "CST3",
+        "MT3",
+        "AQP4",
+        "S100B",
+        "CXCL14",
+        "SPARC",
+        "SAA1",
+        "VIM",
+        "SNORC",
+        "PTGDS",
+        "MGP",
+        "MT1G",
+        "CPB1",
+        "CLU"
+      ],
+      "neighbors": []
+    },
+    {
+      "cluster_id": "L2",
+      "ground_truth": "L2",
+      "top_genes": [
+        "HPCAL1",
+        "ENC1",
+        "NRGN",
+        "MT3",
+        "CAMK2N1",
+        "C1QL2",
+        "SNAP25",
+        "VSNL1",
+        "SERPINE2",
+        "HOPX",
+        "CHN1",
+        "CST3",
+        "OLFM1",
+        "PCDH7",
+        "PPP3CA"
+      ],
+      "neighbors": []
+    },
+    {
+      "cluster_id": "L3",
+      "ground_truth": "L3",
+      "top_genes": [
+        "NEFL",
+        "SCGB1D2",
+        "CARTPT",
+        "MAP1B",
+        "SCGB2A2",
+        "KCNG1",
+        "ENC1",
+        "NRGN",
+        "CHN1",
+        "HOPX",
+        "NEFM",
+        "CBLN4",
+        "HPCAL1",
+        "FREM3",
+        "TUBA1B"
+      ],
+      "neighbors": []
+    },
+    {
+      "cluster_id": "L4",
+      "ground_truth": "L4",
+      "top_genes": [
+        "TUBA1B",
+        "MBP",
+        "PLP1",
+        "NEFL",
+        "NRGN",
+        "MAP1B",
+        "SCGB2A2",
+        "CRYAB",
+        "SNAP25",
+        "S100A11",
+        "SCGB1D2",
+        "QDPR",
+        "TMSB4X",
+        "STMN2",
+        "YWHAH"
+      ],
+      "neighbors": []
+    },
+    {
+      "cluster_id": "L5",
+      "ground_truth": "L5",
+      "top_genes": [
+        "TUBA1B",
+        "MBP",
+        "SNAP25",
+        "PCP4",
+        "TMSB10",
+        "SNCG",
+        "SYT1",
+        "TUBB2A",
+        "PLP1",
+        "FAM19A1",
+        "HS3ST2",
+        "MAP1B",
+        "NEFL",
+        "TRIM44",
+        "SCGB2A2"
+      ],
+      "neighbors": []
+    },
+    {
+      "cluster_id": "L6",
+      "ground_truth": "L6",
+      "top_genes": [
+        "GFAP",
+        "MBP",
+        "SNAP25",
+        "MAP1B",
+        "PLP1",
+        "KRT19",
+        "NR4A2",
+        "CCK",
+        "SCGB2A2",
+        "CHN1",
+        "KRT8",
+        "KRT17",
+        "S100A11",
+        "TUBA1B",
+        "SYT1"
+      ],
+      "neighbors": []
+    },
+    {
+      "cluster_id": "WM",
+      "ground_truth": "WM",
+      "top_genes": [
+        "MBP",
+        "PLP1",
+        "GFAP",
+        "CNP",
+        "MOBP",
+        "CRYAB",
+        "TF",
+        "CLDND1",
+        "PTGDS",
+        "FTH1",
+        "SCD",
+        "PPP1R14A",
+        "S100B",
+        "TUBA1A",
+        "SEPT4"
+      ],
+      "neighbors": []
+    }
+  ]
+}

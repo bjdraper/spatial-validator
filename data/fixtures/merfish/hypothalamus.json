@@ -1,0 +1,182 @@
+{
+  "dataset": "MERFISH mouse hypothalamus (Moffitt et al. 2018)",
+  "section_id": "hypothalamus",
+  "clusters": [
+    {
+      "cluster_id": "Astrocyte",
+      "ground_truth": "Astrocyte",
+      "top_genes": [
+        "Aldh1l1",
+        "Mlc1",
+        "Aqp4",
+        "Cxcl14",
+        "Sox8",
+        "Ttyh2",
+        "Pou3f2",
+        "Sox6",
+        "Cspg5",
+        "Trh",
+        "Cck",
+        "Cyr61",
+        "Bmp7",
+        "Tiparp",
+        "Plin3"
+      ],
+      "neighbors": []
+    },
+    {
+      "cluster_id": "Endothelial",
+      "ground_truth": "Endothelial",
+      "top_genes": [
+        "Fn1",
+        "Igf1r",
+        "Slco1a4",
+        "Rgs5",
+        "Klf4",
+        "Ndrg1",
+        "Sema3c",
+        "Trh",
+        "Cck",
+        "Cdkn1a",
+        "Ndnf",
+        "Adora2a",
+        "Gnrh1",
+        "Plin3",
+        "Mlc1"
+      ],
+      "neighbors": []
+    },
+    {
+      "cluster_id": "Ependymal",
+      "ground_truth": "Ependymal",
+      "top_genes": [
+        "Cd24a",
+        "Nnat",
+        "Mlc1",
+        "Cckbr",
+        "Aqp4",
+        "Ucn3",
+        "Cyr61",
+        "Gnrh1",
+        "Lpar1",
+        "Plin3",
+        "Baiap2",
+        "Sox6",
+        "Sln",
+        "Sox4",
+        "Tmem108"
+      ],
+      "neighbors": []
+    },
+    {
+      "cluster_id": "Excitatory",
+      "ground_truth": "Excitatory",
+      "top_genes": [
+        "Slc17a6",
+        "Cbln2",
+        "Syt4",
+        "Oprl1",
+        "Pak3",
+        "Cbln1",
+        "Gabra1",
+        "Gpr165",
+        "Nos1",
+        "Bdnf",
+        "Adcyap1",
+        "Cpne5",
+        "Igf2r",
+        "Necab1",
+        "Glra3"
+      ],
+      "neighbors": []
+    },
+    {
+      "cluster_id": "Inhibitory",
+      "ground_truth": "Inhibitory",
+      "top_genes": [
+        "Gad1",
+        "Syt4",
+        "Pak3",
+        "Oprl1",
+        "Irs4",
+        "Ar",
+        "Gpr165",
+        "Gabra1",
+        "Pgr",
+        "Gda",
+        "Prlr",
+        "Cpne5",
+        "Dgkk",
+        "Arhgap36",
+        "Esr1"
+      ],
+      "neighbors": []
+    },
+    {
+      "cluster_id": "Microglia",
+      "ground_truth": "Microglia",
+      "top_genes": [
+        "Selplg",
+        "Sema4d",
+        "Man1a",
+        "Sgk1",
+        "Rgs2",
+        "Trh",
+        "Cck",
+        "Slc15a3",
+        "Sox4",
+        "Ebf3",
+        "Sst",
+        "Gal",
+        "Gnrh1",
+        "Necab1",
+        "Sln"
+      ],
+      "neighbors": []
+    },
+    {
+      "cluster_id": "Oligodendrocyte",
+      "ground_truth": "Oligodendrocyte",
+      "top_genes": [
+        "Gjc3",
+        "Sgk1",
+        "Ermn",
+        "Mbp",
+        "Sox8",
+        "Ttyh2",
+        "Ndrg1",
+        "Lpar1",
+        "Opalin",
+        "Cck",
+        "Trh",
+        "Plin3",
+        "Gnrh1",
+        "Etv1",
+        "Pdgfra"
+      ],
+      "neighbors": []
+    },
+    {
+      "cluster_id": "Pericytes",
+      "ground_truth": "Pericytes",
+      "top_genes": [
+        "Myh11",
+        "Lmod1",
+        "Ccnd2",
+        "Fn1",
+        "Klf4",
+        "Npy1r",
+        "Rgs5",
+        "Gnrh1",
+        "Pdgfra",
+        "Bmp7",
+        "Igf1r",
+        "Plin3",
+        "Adora2a",
+        "Cyr61",
+        "Cck"
+      ],
+      "neighbors": []
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "dataset": "DLPFC (Maynard 2021)",
+  "section_id": "151669",
+  "clusters": [
+    {
+      "cluster_id": "L3",
+      "ground_truth": "L3",
+      "top_genes": [
+        "HPCAL1",
+        "CARTPT",
+        "SAA1",
+        "PCDH8",
+        "FABP4",
+        "CBLN4",
+        "HOPX",
+        "ENC1",
+        "LINC00507",
+        "CAMK2N1",
+        "CPB1",
+        "G0S2",
+        "HAPLN4",
+        "RGR",
+        "TESPA1"
+      ],
+      "neighbors": []
+    },
+    {
+      "cluster_id": "L4",
+      "ground_truth": "L4",
+      "top_genes": [
+        "NEFL",
+        "SNCG",
+        "TUBA1B",
+        "NEFM",
+        "MBP",
+        "HOPX",
+        "FRMPD2",
+        "SYT1",
+        "TMSB10",
+        "SCN1B",
+        "PVALB",
+        "STMN1",
+        "OLFM1",
+        "CCK",
+        "SNAP25"
+      ],
+      "neighbors": []
+    },
+    {
+      "cluster_id": "L5",
+      "ground_truth": "L5",
+      "top_genes": [
+        "TMSB10",
+        "PCP4",
+        "SNCG",
+        "MBP",
+        "TUBB2A",
+        "HS3ST2",
+        "SMYD2",
+        "FRMPD2",
+        "SYT1",
+        "GFAP",
+        "RORB",
+        "DIRAS2",
+        "TUBA1B",
+        "SNAP25",
+        "STMN1"
+      ],
+      "neighbors": []
+    },
+    {
+      "cluster_id": "L6",
+      "ground_truth": "L6",
+      "top_genes": [
+        "CCK",
+        "MBP",
+        "SNAP25",
+        "TMSB10",
+        "DIRAS2",
+        "TESPA1",
+        "GAP43",
+        "SYT1",
+        "KRT17",
+        "GFAP",
+        "PLP1",
+        "GNG2",
+        "MAP2K1",
+        "YWHAH",
+        "DKK3"
+      ],
+      "neighbors": []
+    },
+    {
+      "cluster_id": "WM",
+      "ground_truth": "WM",
+      "top_genes": [
+        "MBP",
+        "SCGB2A2",
+        "GFAP",
+        "PLP1",
+        "CST3",
+        "MT3",
+        "SCGB1D2",
+        "S100B",
+        "FTH1",
+        "FTL",
+        "KRT8",
+        "MOBP",
+        "RPLP1",
+        "S100A11",
+        "CRYAB"
+      ],
+      "neighbors": []
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+# Offline data prep only (building fixtures from the downloaded dataset).
+# Not needed to run the agent / eval.
+scanpy>=1.10
+anndata>=0.10
+pandas
+numpy
+# Note: DLPFC processed data is distributed via the spatialLIBD Bioconductor
+# package (R). See data_prep/README.md for the download route.
