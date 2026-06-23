@@ -1,0 +1,16 @@
+{
+  "query": "Nnat mouse hypothalamus marker",
+  "as_of": "2026-06-01",
+  "fetched_via": "pubmed-eutils",
+  "results": [
+    {
+      "pmid": "31805566",
+      "doi": "10.1159/000504359",
+      "title": "Dynamic Changes in the Localization of Neuronatin-Positive Cells during Neurogenesis in the Embryonic Rat Brain",
+      "journal": "Cells Tissues Organs",
+      "year": "2019",
+      "snippet": "Neuronatin (NNAT) was first identified as a gene selectively and abundantly expressed in the cytoplasm of the newborn mouse brain, and involved in neonatal neurogenesis.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/31805566/"
+    }
+  ]
+}

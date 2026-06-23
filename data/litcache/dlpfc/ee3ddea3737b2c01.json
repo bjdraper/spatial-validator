@@ -1,0 +1,43 @@
+{
+  "query": "MBP human dorsolateral prefrontal cortex marker",
+  "as_of": "2026-06-01",
+  "fetched_via": "pubmed-eutils",
+  "results": [
+    {
+      "pmid": "17199889",
+      "doi": "10.1186/1471-2202-8-2",
+      "title": "Evidence for a wide extra-astrocytic distribution of S100B in human brain",
+      "journal": "BMC Neurosci",
+      "year": "2007",
+      "snippet": "S100B is considered an astrocytic in-situ marker and protein levels in cerebrospinal fluid (CSF) or serum are often used as biomarker for astrocytic damage or dysfunction.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/17199889/"
+    },
+    {
+      "pmid": "24448210",
+      "doi": "10.1038/tp.2013.121",
+      "title": "Novel implications of Lingo-1 and its signaling partners in schizophrenia",
+      "journal": "Transl Psychiatry",
+      "year": "2014",
+      "snippet": "We examined protein levels of Lingo-1, NgR, TROY, p75, WNK1, Myt1 and myelin basic protein (MBP) (as a marker of myelination) within the post-mortem dorsolateral prefrontal cortex (DLPFC) (37 schizophrenia patients versus 37 matched controls) and hippocampus (Cornu Ammonis, CA1 and CA3) (20 schizophrenia patients versu",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/24448210/"
+    },
+    {
+      "pmid": "34706460",
+      "doi": "10.1016/j.jad.2021.08.098",
+      "title": "Changes in glial gene expression in the prefrontal cortex in relation to major depressive disorder, suicide and psychotic features",
+      "journal": "J Affect Disord",
+      "year": "2021",
+      "snippet": "To establish whether major depressive disorder (MDD), suicidal behaviors and psychotic features contribute to glial alterations in the human prefrontal cortex.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/34706460/"
+    },
+    {
+      "pmid": "19154657",
+      "doi": "10.1017/S1461145708009887",
+      "title": "Association between golli-MBP and schizophrenia in the Jewish Ashkenazi population: are regulatory regions involved?",
+      "journal": "Int J Neuropsychopharmacol",
+      "year": "2009",
+      "snippet": "One of these genes is the myelin-basic-protein (MBP) gene, which encodes two families of proteins: classic-MBPs and golli-MBPs.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/19154657/"
+    }
+  ]
+}

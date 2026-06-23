@@ -1,0 +1,16 @@
+{
+  "query": "NEFL human dorsolateral prefrontal cortex marker",
+  "as_of": "2026-06-01",
+  "fetched_via": "pubmed-eutils",
+  "results": [
+    {
+      "pmid": "39800065",
+      "doi": "10.1016/j.jad.2025.01.045",
+      "title": "Peripheral neurofilament light chain and intracortical myelin in bipolar I disorder",
+      "journal": "J Affect Disord",
+      "year": "2025",
+      "snippet": "t-test was used to determine group difference in NfL levels between BD and HC, and ridge regression was performed to analyze NfL and ICM association in six brain regions that demonstrated ICM deficits including the dorsolateral motor cortex, dorsomedial motor cortex, dorsolateral premotor cortex, dorsomedial premotor c",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39800065/"
+    }
+  ]
+}

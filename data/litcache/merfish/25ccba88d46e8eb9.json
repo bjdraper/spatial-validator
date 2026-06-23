@@ -1,0 +1,43 @@
+{
+  "query": "Gad1 mouse hypothalamus marker",
+  "as_of": "2026-06-01",
+  "fetched_via": "pubmed-eutils",
+  "results": [
+    {
+      "pmid": "32332079",
+      "doi": "10.1523/ENEURO.0527-19.2020",
+      "title": "GAD2 Expression Defines a Class of Excitatory Lateral Habenula Neurons in Mice that Project to the Raphe and Pontine Tegmentum",
+      "journal": "eNeuro",
+      "year": "2020",
+      "snippet": "The lateral habenula (LHb) sends complex projections to several areas of the mesopontine tegmentum, the raphe, and the hypothalamus.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/32332079/"
+    },
+    {
+      "pmid": "22128821",
+      "doi": "10.1111/j.1460-9568.2011.07918.x",
+      "title": "Gene expression analysis in the parvalbumin-immunoreactive PV1 nucleus of the mouse lateral hypothalamus",
+      "journal": "Eur J Neurosci",
+      "year": "2011",
+      "snippet": "A solitary, elongated cluster of parvalbumin-immunoreactive neurons has been previously observed in the rodent ventrolateral hypothalamus.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/22128821/"
+    },
+    {
+      "pmid": "30155524",
+      "doi": "10.1016/j.ibror.2018.05.001",
+      "title": "VGAT and VGLUT2 expression in MCH and orexin neurons in double transgenic reporter mice",
+      "journal": "IBRO Rep",
+      "year": "2018",
+      "snippet": "The neuropeptides orexin and melanin-concentrating hormone (MCH), as well as the neurotransmitters GABA (\u03b3-Aminobutyric acid) and glutamate are chief modulators of the sleep-wake states in the posterior hypothalamus.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/30155524/"
+    },
+    {
+      "pmid": "31073137",
+      "doi": "10.1038/s41598-019-43580-1",
+      "title": "GABAergic neurons in the olfactory cortex projecting to the lateral hypothalamus in mice",
+      "journal": "Sci Rep",
+      "year": "2019",
+      "snippet": "To investigate how central olfactory neural circuits control feeding behaviour in mice, we performed retrograde tracing from the lateral hypothalamus (LH), an important feeding centre.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/31073137/"
+    }
+  ]
+}

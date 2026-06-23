@@ -1,0 +1,16 @@
+{
+  "query": "MOBP human dorsolateral prefrontal cortex marker",
+  "as_of": "2026-06-01",
+  "fetched_via": "pubmed-eutils",
+  "results": [
+    {
+      "pmid": "25329999",
+      "doi": "10.1371/journal.pone.0110972",
+      "title": "Coordinated gene expression of neuroinflammatory and cell signaling markers in dorsolateral prefrontal cortex during human brain development and aging",
+      "journal": "PLoS One",
+      "year": "2014",
+      "snippet": "Age changes in expression of inflammatory, synaptic, and neurotrophic genes are not well characterized during human brain development and senescence.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/25329999/"
+    }
+  ]
+}

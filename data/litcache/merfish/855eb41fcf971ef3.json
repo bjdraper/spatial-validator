@@ -1,0 +1,43 @@
+{
+  "query": "Slc17a6 mouse hypothalamus marker",
+  "as_of": "2026-06-01",
+  "fetched_via": "pubmed-eutils",
+  "results": [
+    {
+      "pmid": "33055197",
+      "doi": "10.1523/ENEURO.0272-20.2020",
+      "title": "Mapping Cell Types and Efferent Pathways in the Ascending Relaxin-3 System of the Nucleus Incertus",
+      "journal": "eNeuro",
+      "year": "2020",
+      "snippet": "Relaxin-3 (Rln3) is an insulin-family peptide neurotransmitter expressed primarily in neurons of the nucleus incertus (NI) of the pontine tegmentum, with smaller populations located in the deep mesencephalon (DpMe) and periaqueductal gray (PAG).",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/33055197/"
+    },
+    {
+      "pmid": "22128821",
+      "doi": "10.1111/j.1460-9568.2011.07918.x",
+      "title": "Gene expression analysis in the parvalbumin-immunoreactive PV1 nucleus of the mouse lateral hypothalamus",
+      "journal": "Eur J Neurosci",
+      "year": "2011",
+      "snippet": "A solitary, elongated cluster of parvalbumin-immunoreactive neurons has been previously observed in the rodent ventrolateral hypothalamus.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/22128821/"
+    },
+    {
+      "pmid": "23082195",
+      "doi": "10.1371/journal.pone.0047700",
+      "title": "Persistent histamine excitation of glutamatergic preoptic neurons",
+      "journal": "PLoS One",
+      "year": "2012",
+      "snippet": "These studies also established the presence of transcripts for the glutamatergic marker Vglut2 and for the H1 histamine receptor in neurons excited by histamine.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/23082195/"
+    },
+    {
+      "pmid": "30537700",
+      "doi": "10.1159/000496106",
+      "title": "Medial Amygdala Kiss1 Neurons Mediate Female Pheromone Stimulation of Luteinizing Hormone in Male Mice",
+      "journal": "Neuroendocrinology",
+      "year": "2019",
+      "snippet": "Lastly, using in situ hybridization, we identified the proportion of MeAKiss neurons that express markers for GABAergic (Vgat) and glutamatergic (Vglut2) neurotransmission.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/30537700/"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "query": "GFAP human dorsolateral prefrontal cortex marker",
+  "as_of": "2026-06-01",
+  "fetched_via": "pubmed-eutils",
+  "results": [
+    {
+      "pmid": "30630651",
+      "doi": "10.1016/j.euroneuro.2018.12.011",
+      "title": "Neuroinflammation in the dorsolateral prefrontal cortex in elderly chronic schizophrenia",
+      "journal": "Eur Neuropsychopharmacol",
+      "year": "2019",
+      "snippet": "These altered processes in the dorsolateral prefrontal cortex (DLPFC) could contribute to the worsening of the deficits.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/30630651/"
+    },
+    {
+      "pmid": "41188877",
+      "doi": "10.1186/s12974-025-03608-y",
+      "title": "A molecular convergence in the triad of parkinson's disease, depressive disorder and gut health is revealed by the inflammation-miRNA axis",
+      "journal": "J Neuroinflammation",
+      "year": "2025",
+      "snippet": "We analyzed the expression of a panel of inflammatory bowel disease (IBD)-associated miRNAs, key inflammatory markers, and glial response in postmortem brain tissue (dorsolateral prefrontal cortex and caudate nucleus) from patients with PD, DD, and matched healthy controls.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41188877/"
+    },
+    {
+      "pmid": "29234492",
+      "doi": "10.1186/s13229-017-0181-5",
+      "title": "No preliminary evidence of differences in astrocyte density within the white matter of the dorsolateral prefrontal cortex in autism",
+      "journal": "Mol Autism",
+      "year": "2017",
+      "snippet": "We present the first study of astrocyte density and morphology within the white matter of the dorsolateral prefrontal cortex (DLPFC) in individuals with autism.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29234492/"
+    },
+    {
+      "pmid": "25329999",
+      "doi": "10.1371/journal.pone.0110972",
+      "title": "Coordinated gene expression of neuroinflammatory and cell signaling markers in dorsolateral prefrontal cortex during human brain development and aging",
+      "journal": "PLoS One",
+      "year": "2014",
+      "snippet": "Age changes in expression of inflammatory, synaptic, and neurotrophic genes are not well characterized during human brain development and senescence.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/25329999/"
+    }
+  ]
+}

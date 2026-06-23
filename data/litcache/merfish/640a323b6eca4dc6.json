@@ -1,0 +1,43 @@
+{
+  "query": "Igf1r mouse hypothalamus marker",
+  "as_of": "2026-06-01",
+  "fetched_via": "pubmed-eutils",
+  "results": [
+    {
+      "pmid": "40172534",
+      "doi": "10.1210/endocr/bqaf062",
+      "title": "GH-Releasing Hormone Neurons Regulate the Hypothalamic-Pituitary-Somatotropic Axis via Short-Loop Negative Feedback",
+      "journal": "Endocrinology",
+      "year": "2025",
+      "snippet": "Approximately 60% of arcuate nucleus GHRH neurons exhibited GH-induced STAT5 phosphorylation, a marker of GHR-expressing cells.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40172534/"
+    },
+    {
+      "pmid": "37685880",
+      "doi": "10.3390/ijms241713073",
+      "title": "Insulin-like Growth Factor 1, Growth Hormone, and Anti-M\u00fcllerian Hormone Receptors Are Differentially Expressed during GnRH Neuron Development",
+      "journal": "Int J Mol Sci",
+      "year": "2023",
+      "snippet": "To assess the role of AMH, GH, and IGF1 systems in the development of GnRH neuron, we evaluated the expression of AMH receptors (AMHR2), GH (GHR), and IGF1 (IGF1R) on sections of ex vivo mice at different development stages.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37685880/"
+    },
+    {
+      "pmid": "27013528",
+      "doi": "10.1242/dmm.023515",
+      "title": "Increased oxidative stress and apoptosis in the hypothalamus of diabetic male mice in the insulin receptor substrate-2 knockout model",
+      "journal": "Dis Model Mech",
+      "year": "2016",
+      "snippet": "The hypothalamus might play a key role in the early onset of diabetes, owing to its involvement in the control of glucose homeostasis and energy balance.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/27013528/"
+    },
+    {
+      "pmid": "25711529",
+      "doi": "10.1093/gerona/glv010",
+      "title": "Inflammatory and Glutamatergic Homeostasis Are Involved in Successful Aging",
+      "journal": "J Gerontol A Biol Sci Med Sci",
+      "year": "2016",
+      "snippet": "The aim of this study was to determine if glutamatergic and inflammatory markers that are altered in aging and/or age-related diseases and disorders, are preserved in mice that experience increased healthspan.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/25711529/"
+    }
+  ]
+}

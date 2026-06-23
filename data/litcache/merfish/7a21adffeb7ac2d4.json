@@ -1,0 +1,16 @@
+{
+  "query": "Aqp4 mouse hypothalamus marker",
+  "as_of": "2026-06-01",
+  "fetched_via": "pubmed-eutils",
+  "results": [
+    {
+      "pmid": "38788830",
+      "doi": "10.1016/j.neuroscience.2024.05.022",
+      "title": "Immortalization and Characterization of GFAP-expressing Glial Cells from the Adult Mouse Hypothalamus, Cortex, and Brain Stem",
+      "journal": "Neuroscience",
+      "year": "2024",
+      "snippet": "The generation of astrocyte cell lines from the hypothalamus is key to study glial involvement in hypothalamic physiology, including energy homeostasis.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/38788830/"
+    }
+  ]
+}

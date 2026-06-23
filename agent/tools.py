@@ -26,9 +26,12 @@ TOOLS = [
     {
         "name": "search_literature",
         "description": (
-            "Search the indexed landmark-paper corpus for a phrase or "
-            "gene/cell-type combination, to find verbatim supporting text. "
-            "Returns matching snippets with their source."
+            "Search PubMed (live, with a persistent cache) for a gene and/or "
+            "cell-type / tissue-layer combination, to find supporting "
+            "publications. Returns ranked references — title, journal, year, a "
+            "snippet, and a citable PMID + DOI. Use it to corroborate a marker "
+            "assignment, or to reason about a gene that is missing from the "
+            "marker knowledge base. Cite the PMIDs you rely on."
         ),
         "input_schema": {
             "type": "object",
@@ -79,12 +82,18 @@ def marker_lookup(gene, cfg, kb):
 
 
 def search_literature(query, cfg, kb):
+    # Live PubMed + persistent cache when configured (see agent/literature.py).
+    if (cfg.get("literature") or {}).get("enabled"):
+        from . import literature
+        return literature.search(query, cfg)
+
+    # Back-compat fallback: substring match over a hand-curated KB corpus.
     lit = kb.get("literature", [])
     if not lit:
         return {
             "query": query,
             "matches": [],
-            "note": "No literature corpus indexed for this dataset yet.",
+            "note": "No literature corpus configured for this dataset.",
         }
     terms = (query or "").lower().split()
     matches = [

@@ -15,6 +15,7 @@ The loop is provider-agnostic: it speaks the neutral message format from
 Claude (Anthropic), OpenAI/Codex, or a local Ollama model.
 """
 import json
+import re
 import time
 
 from .providers import _extract_json
@@ -66,6 +67,7 @@ def predict(client, cluster, cfg, kb, *, max_iters=4, max_tool_calls=25, timeout
     system = cfg["system_prompt"]
     messages = [{"role": "user", "content": _user_query(cluster, cfg)}]
     trace = {"cluster_id": cluster["cluster_id"], "steps": [], "tool_calls": 0}
+    pmids_seen = set()  # PMIDs the agent actually retrieved, for citation grounding
     start = time.monotonic()
 
     for _ in range(max_iters):
@@ -97,6 +99,10 @@ def predict(client, cluster, cfg, kb, *, max_iters=4, max_tool_calls=25, timeout
                 out = {"error": "tool-call budget exceeded"}
             else:
                 out = dispatch(call["name"], call["input"], cfg, kb)
+            if call["name"] == "search_literature" and isinstance(out, dict):
+                for m in out.get("matches", []):
+                    if m.get("pmid"):
+                        pmids_seen.add(str(m["pmid"]))
             trace["steps"].append(
                 {"tool": call["name"], "input": call["input"], "output": out}
             )
@@ -116,6 +122,16 @@ def predict(client, cluster, cfg, kb, *, max_iters=4, max_tool_calls=25, timeout
         max_tokens=2000,
     )
     prediction = _extract_json(final.text)
+
+    # Citation grounding: flag any PMID the agent cited but never retrieved.
+    cited_pmids = set(re.findall(r"\b\d{7,8}\b", " ".join(prediction.get("citations", []))))
+    ungrounded = sorted(cited_pmids - pmids_seen)
+    trace["literature"] = {
+        "pmids_retrieved": sorted(pmids_seen),
+        "ungrounded_pmid_citations": ungrounded,
+    }
+    prediction["citation_grounded"] = not ungrounded
+
     trace["prediction"] = prediction
     trace["elapsed_s"] = round(time.monotonic() - start, 1)
     return prediction, trace

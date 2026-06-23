@@ -35,6 +35,16 @@ adjacent_partial_credit: 0.5
 marker_kb: data/kb/brain_markers.json
 fixtures: data/fixtures/dlpfc
 
+# Live PubMed + persistent cache. cache_only keeps a local Ollama run fully
+# offline against the committed snapshot; switch to pubmed for live queries.
+literature:
+  enabled: true
+  source: pubmed
+  cache_dir: data/litcache/dlpfc
+  top_k: 4
+  as_of: "2026-06-01"
+  ncbi_api_key_env: NCBI_API_KEY
+
 system_prompt: |
   You are a spatial transcriptomics annotation assistant. Given a cluster's top
   differentially expressed marker genes, you predict its cell type or tissue

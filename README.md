@@ -39,6 +39,35 @@ python eval/run_eval.py --config configs/dlpfc.ollama.yaml --limit 2
 Local models must support **tool-calling** to gather marker evidence (llama3.2
 does; pull a stronger model like `qwen2.5:14b` for better accuracy).
 
+## Live literature search (PubMed) with a persistent cache
+
+`search_literature` queries **PubMed via NCBI E-utilities** (stdlib only — no
+extra dependency, no MCP) and writes every result to an on-disk cache
+(`data/litcache/<dataset>/`). The agent uses it to corroborate a marker call or
+to reason about a gene that's missing from the marker KB, citing real **PMIDs +
+DOIs**. Configure per dataset under `literature:` in the YAML:
+
+```yaml
+literature:
+  enabled: true
+  source: pubmed        # pubmed = live on cache miss, then cached
+                        # cache_only = committed snapshot only (offline, reproducible)
+                        # none = disable the tool
+  cache_dir: data/litcache/dlpfc
+  top_k: 4
+  as_of: "2026-06-01"   # PubMed date ceiling -> "live" stays reproducible
+  ncbi_api_key_env: NCBI_API_KEY   # optional; raises rate limit 3 -> 10 req/s
+```
+
+- **Demo / benchmark:** the committed `data/litcache/` snapshot makes re-runs
+  fast, offline, and reproducible. Set `source: cache_only` to guarantee no
+  network calls.
+- **New datasets:** pre-warm the cache from a dataset's own fixtures —
+  `python data_prep/warm_litcache.py --config configs/<dataset>.yaml`.
+- **Grounding:** each run records which PMIDs were actually retrieved; any PMID
+  the model *cites* but never retrieved is flagged (`citation_grounded` on the
+  prediction, `ungrounded_pmid_citations` in the trace).
+
 ## Why it's evaluable
 
 Benchmarked on the **DLPFC (Maynard et al. 2021)** dataset: every spot is
@@ -55,6 +84,7 @@ agent/        dataset-AGNOSTIC core — never edited per dataset
   loop.py       bounded, auditable agent loop (caps + full trace)
   providers.py  provider-agnostic model layer (anthropic | openai | ollama)
   tools.py      marker_lookup, search_literature, adjacency_rules (read-only)
+  literature.py cache-first PubMed (E-utilities) client behind search_literature
   schema.py     structured-output contract (label enum from config)
 configs/      one YAML per dataset+provider (model, labels, adjacency, KB, prompt)
 data/

@@ -19,6 +19,15 @@ adjacent_partial_credit: 0.0
 marker_kb: data/kb/mouse_celltype_markers.json
 fixtures: data/fixtures/merfish
 
+# Live PubMed literature search + persistent cache (see configs/dlpfc.yaml for notes).
+literature:
+  enabled: true
+  source: pubmed
+  cache_dir: data/litcache/merfish
+  top_k: 4
+  as_of: "2026-06-01"
+  ncbi_api_key_env: NCBI_API_KEY
+
 system_prompt: |
   You are a spatial transcriptomics annotation assistant. Given a cluster's top
   differentially expressed marker genes, predict its cell type, choosing exactly

@@ -1,0 +1,16 @@
+{
+  "query": "Sgk1 mouse hypothalamus marker",
+  "as_of": "2026-06-01",
+  "fetched_via": "pubmed-eutils",
+  "results": [
+    {
+      "pmid": "23364339",
+      "doi": "10.1038/hr.2012.221",
+      "title": "Role of hypothalamic angiotensin type 1 receptors in pressure overload-induced mineralocorticoid receptor activation and salt-induced sympathoexcitation",
+      "journal": "Hypertens Res",
+      "year": "2013",
+      "snippet": "High salt loading increased the urinary excretion of norepinephrine, a marker of sympathetic activity in ABH-WT, concomitant with hypothalamic MR activation, but not in ABH-KO.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/23364339/"
+    }
+  ]
+}

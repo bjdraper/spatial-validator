@@ -1,0 +1,25 @@
+{
+  "query": "SNAP25 human dorsolateral prefrontal cortex marker",
+  "as_of": "2026-06-01",
+  "fetched_via": "pubmed-eutils",
+  "results": [
+    {
+      "pmid": "32507381",
+      "doi": "10.1016/j.schres.2020.05.034",
+      "title": "Higher levels of \u03b17 nicotinic receptors, but not choline acetyltransferase, in the dorsolateral prefrontal cortex from a sub-group of patients with schizophrenia",
+      "journal": "Schizophr Res",
+      "year": "2020",
+      "snippet": "Hence, we have studied a number of cholinergic markers in the cortex from a sub-group of subjects with schizophrenia that have a marked decrease in levels of muscarinic M1 receptors (MRDS).",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/32507381/"
+    },
+    {
+      "pmid": "16542183",
+      "doi": "10.1111/j.1399-5618.2006.00300.x",
+      "title": "Increased levels of SNAP-25 and synaptophysin in the dorsolateral prefrontal cortex in bipolar I disorder",
+      "journal": "Bipolar Disord",
+      "year": "2006",
+      "snippet": "In order to identify whether the mechanisms associated with neurotransmitter release are involved in the pathologies of bipolar disorder and schizophrenia, levels of presynaptic [synaptosomal-associated protein-25 (SNAP-25), syntaxin, synaptophysin, vesicle-associated membrane protein, dynamin I] and structural (neuron",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/16542183/"
+    }
+  ]
+}

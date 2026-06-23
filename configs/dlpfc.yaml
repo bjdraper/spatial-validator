@@ -33,6 +33,19 @@ adjacent_partial_credit: 0.5
 marker_kb: data/kb/brain_markers.json
 fixtures: data/fixtures/dlpfc
 
+# Live PubMed literature search with a persistent on-disk cache (agent/literature.py).
+#   source: pubmed     -> live query on cache miss, then cached (default)
+#           cache_only -> committed snapshot only; offline + fully reproducible
+#           none       -> disable the tool
+# Commit data/litcache/ to freeze a reproducible demo/benchmark snapshot.
+literature:
+  enabled: true
+  source: pubmed
+  cache_dir: data/litcache/dlpfc
+  top_k: 4
+  as_of: "2026-06-01"            # PubMed date ceiling -> "live" stays reproducible
+  ncbi_api_key_env: NCBI_API_KEY # optional; raises rate limit 3 -> 10 req/s
+
 system_prompt: |
   You are a spatial transcriptomics annotation assistant. Given a cluster's top
   differentially expressed marker genes, you predict its cell type or tissue

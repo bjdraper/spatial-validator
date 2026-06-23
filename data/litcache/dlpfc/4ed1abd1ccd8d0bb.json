@@ -1,0 +1,16 @@
+{
+  "query": "CCK human dorsolateral prefrontal cortex marker",
+  "as_of": "2026-06-01",
+  "fetched_via": "pubmed-eutils",
+  "results": [
+    {
+      "pmid": "26110109",
+      "doi": "10.1016/j.nicl.2015.03.016",
+      "title": "Neuroimaging and neuromodulation approaches to study eating behavior and prevent and treat eating disorders and obesity",
+      "journal": "Neuroimage Clin",
+      "year": "2015",
+      "snippet": "In particular, decreased basal metabolism in the prefrontal cortex and striatum as well as dopaminergic alterations have been described in obese subjects, in parallel with increased activation of reward brain areas in response to palatable food cues.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/26110109/"
+    }
+  ]
+}
