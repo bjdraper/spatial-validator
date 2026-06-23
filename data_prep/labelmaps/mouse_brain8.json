@@ -1,0 +1,17 @@
+{
+  "_note": "Maps CellMarker 2.0 fine-grained cell_name -> the 8-class MERFISH label vocabulary. First matching keyword (substring, case-insensitive) wins; cell names matching nothing are dropped. Keeps the CellMarker KB on the same label set as the benchmark so it is directly scoreable.",
+  "rules": [
+    ["glutamatergic", "Excitatory"],
+    ["excitatory", "Excitatory"],
+    ["gabaergic", "Inhibitory"],
+    ["inhibitory", "Inhibitory"],
+    ["astrocyte", "Astrocyte"],
+    ["oligodendrocyte", "Oligodendrocyte"],
+    ["microglia", "Microglia"],
+    ["microglial", "Microglia"],
+    ["ependymal", "Ependymal"],
+    ["endothelial", "Endothelial"],
+    ["pericyte", "Pericytes"],
+    ["mural", "Pericytes"]
+  ]
+}

@@ -91,14 +91,29 @@ only constrain the format on the final, tool-free turn.
 
 ## 4. What the agent can call (the tools — `agent/tools.py`)
 
-All three are **read-only** (no side effects, so a run can never alter anything)
-and run **locally** — they read the KB, not the network.
+All three are **read-only** (no side effects, so a run can never alter anything).
+`marker_lookup` and `adjacency_rules` are local; `search_literature` reaches
+PubMed (with a persistent cache — see §4a).
 
 | Tool | Input | Returns | Purpose |
 |---|---|---|---|
-| `marker_lookup` | `gene` | KB entry: `identities` (layers it points to), `direction`, `specificity` (`high`/`medium`/`low`/`none`), `note`, `citation`; or `found: false` | The core call — turn a gene into evidence about which layer it implies and how much to trust it. |
-| `adjacency_rules` | `label` | which labels can be spatially adjacent to that one (from config) | Sanity-check spatial plausibility (cortical layers are an ordered stack). |
-| `search_literature` | `query` | matching snippets from the indexed paper corpus | Verbatim literature support. **Currently empty** — corpus not yet indexed (see §8). |
+| `marker_lookup` | `gene` | KB entry: `identities` (labels it points to), `direction`, `specificity` (`high`/`medium`/`low`/`none`), `note`, `citation`; or `found: false` | The core call — turn a gene into evidence about which label it implies and how much to trust it. |
+| `adjacency_rules` | `label` | which labels can be spatially adjacent to that one (from config) | Sanity-check spatial plausibility (cortical layers are an ordered stack). Empty for non-spatial tasks. |
+| `search_literature` | `query` | ranked PubMed refs — title, journal, year, snippet, **PMID + DOI** | Corroborate a marker call, or reason about a gene missing from the KB. Live + cached (§4a). |
+
+### 4a. Literature search — live PubMed + persistent cache (`agent/literature.py`)
+
+`search_literature` queries PubMed via NCBI E-utilities (stdlib only) and caches
+every result under `literature.cache_dir`. Configured per dataset:
+
+- `source: pubmed` — live on a cache miss, then cached; `cache_only` — committed
+  snapshot only (offline, reproducible); `none` — disabled.
+- `as_of:` pins a PubMed date ceiling so "live" stays reproducible.
+- A committed `data/litcache/` snapshot makes demo/benchmark runs fast + offline.
+- Pre-warm a new dataset: `python data_prep/warm_litcache.py --config <cfg>`.
+- **Citation grounding:** the loop records which PMIDs were actually retrieved;
+  any PMID the model *cites* but never retrieved is flagged
+  (`citation_grounded` on the prediction, `ungrounded_pmid_citations` in trace).
 
 The model decides *which* genes to look up and *whether* to check adjacency —
 those calls aren't scripted.
@@ -220,18 +235,32 @@ and why the rubric gives adjacent layers partial credit.
 
 ## 10. Current state & known gaps
 
-- ✅ Repo, fixtures (33 DLPFC cases), KB (68 entries), eval, offline tests.
-- ✅ API key authenticates; pipeline validated offline.
-- ⛔ **Model-backed runs are gated on account credit** (billing 400) — add
-  credits in the Anthropic Console.
-- **KB coverage ~88%** of recurring fixture genes; the rest are deliberately
-  unassigned (non-specific / uncertain) — workshop curation target.
-- **`search_literature` corpus is empty** — `marker_lookup` provides citations
-  for now; index landmark papers to enable verbatim quotes.
+- ✅ Repo, fixtures (33 DLPFC + 8 MERFISH cases), KBs, eval, offline tests.
+- ✅ **Provider-agnostic** model layer (`agent/providers.py`): Claude / OpenAI
+  (Codex) / local Ollama — pick via `provider:` in the config or `--provider`.
+- ✅ **Live PubMed literature search + persistent cache** (§4a). Verified
+  end-to-end; cache snapshot committed.
+- ✅ **CellMarker 2.0 marker DB option** (§4b) — `data_prep/build_kb.py` compiles
+  CellMarker 2.0 into the KB schema; `marker_lookup` unchanged. Smoke-tested.
+- **A/B (qwen2.5:14b, MERFISH, literature off):** hand-curated KB scored **8/8**;
+  CellMarker KB passed a 1-cluster smoke test (full run not yet completed).
+- **Hand-KB coverage ~88%** (DLPFC) / partial (MERFISH); CellMarker KB covers
+  33/78 MERFISH fixture genes — gaps fall through to the live PubMed backstop.
 - **`adjacency` is reasoning-only** in the layer-as-cluster setup: fixtures carry
   no populated neighbours, so `adjacency_rules` informs the model of the layer
   stack's structure but has no concrete neighbour labels to check against.
-  (Populating real neighbours needs a de-novo-clustering fixture variant.)
+- **Negative markers** are still encoded as prose in KB notes, not as
+  `direction: negative` entries (the schema supports them).
+
+### 4b note — CellMarker 2.0 as marker DB (the redesign toward a general cell-type discriminator)
+
+`data_prep/build_kb.py` turns CellMarker 2.0 into the same KB JSON schema
+`marker_lookup` already reads (so no agent code changes), with: tissue filtering,
+a fine→coarse cell-name collapse map (`data_prep/labelmaps/*.json`), a
+**dominance filter** that drops minority-noise labels (e.g. `Gad1`'s stray
+"Excitatory" record), and an **evidence-weighted specificity** proxy (`high`
+needs one label + ≥3 supporting records). Tradeoff: far more coverage (2,153
+genes vs 57 hand-curated) at the cost of noise — hence the filters.
 
 ## 11. Provenance
 

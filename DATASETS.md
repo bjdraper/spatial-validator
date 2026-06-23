@@ -85,6 +85,27 @@ drawn from canonical references. Entries cite these descriptively (not verbatim)
 > work. Markers without well-established layer/type specificity are deliberately
 > left unassigned rather than guessed.
 
+### Building a KB from CellMarker 2.0 (auto-compiled marker DB)
+
+For a larger, general cell-type marker base, `data_prep/build_kb.py` compiles
+**CellMarker 2.0** (Hu et al. 2023, above) into the same KB JSON schema, so
+`marker_lookup` is unchanged. Download the species file once and build:
+
+```bash
+# http://117.50.127.228/CellMarker/CellMarker_download_files/file/Cell_marker_Mouse.xlsx
+python data_prep/build_kb.py \
+    --xlsx data/raw/Cell_marker_Mouse.xlsx \
+    --tissue Brain Hypothalamus Cerebral \
+    --label-map data_prep/labelmaps/mouse_brain8.json \
+    --out data/kb/mouse_brain_cellmarker.json
+```
+
+The build filters by tissue, collapses CellMarker's fine cell names to the
+dataset's label vocabulary (`labelmaps/*.json`), drops minority-noise labels
+(dominance filter), and derives a specificity proxy (CellMarker has no
+specificity column). CellMarker ships PMIDs per record, so entries carry real
+citations. Use `configs/merfish.cellmarker.yaml` to point the agent at it.
+
 ---
 
 ## 4. Scoring & ground truth
